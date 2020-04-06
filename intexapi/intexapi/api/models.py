@@ -3,10 +3,62 @@ from django.db import models
 
 # Create your models here.
 class Campaign(models.Model):
+    url = models.TextField()
+    campaign_id = models.TextField()
+    auto_fb_post_mode = models.TextField()
+    collected_date = models.TextField()
+    category_id = models.TextField()
+    category = models.TextField()
+    currencycode = models.TextField()
+    current_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    goal = models.DecimalField(max_digits=10, decimal_places=2)
+    donators = models.TextField()
+    days_active = models.TextField()
+    days_created = models.TextField()
     title = models.TextField()
+    description = models.TextField()
+    default_url = models.TextField()
+    has_beneficiary = models.TextField()
+    media_type = models.TextField()
+    project_type = models.TextField()
+    turn_off_donations = models.TextField()
+    user_id = models.TextField()
+    user_first_name = models.TextField()
+    user_last_name = models.TextField()
+    user_facebook_id = models.TextField()
+    user_profile_url = models.TextField()
+    visible_in_search = models.TextField()
+    status = models.TextField()
+    deactivated = models.TextField()
+    state = models.TextField()
+    is_launched = models.TextField()
+    campaign_image_url = models.TextField()
+    launch_date = models.TextField()
+    campaign_hearts = models.TextField()
+    social_share_total = models.TextField()
+    social_share_last_update = models.TextField()
+    location_city = models.TextField()
+    location_country = models.TextField()
+    location_zip = models.TextField()
+    is_charity = models.TextField()
+    charity_valid = models.TextField()
+    charity_npo_id = models.TextField()
+    charity_name = models.TextField()
+    velocity = models.TextField()
+
 
 class Donation(models.Model):
-    title = models.TextField()
+    campaign_id = models.TextField()
+    collected_date = models.TextField() # This needs to be a forign key 
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    is_offline = models.TextField()
+    is_anonymous = models.TextField()
+    name = models.TextField()
+    created_at = models.TextField()
+    profile_url = models.TextField()
+    verified = models.TextField()
+
+
     # category = models.ForeignKey(Category, on_delete=models.PROTECT)
     # name = models.TextField()
     # description = models.TextField()
@@ -14,7 +66,17 @@ class Donation(models.Model):
     # price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Update(models.Model):
-    title = models.TextField()
+    update_id = models.TextField()  # This needs to be a forign key 
+    campaign_id = models.TextField()
+    collected_date = models.TextField()
+    photo_url = models.TextField()
+    created_at = models.TextField()
+    updates_author = models.TextField()
+    updates_author_type = models.TextField()
+    updates_text = models.TextField()
+    comments = models.TextField()
+
+
     # name = models.TextField()
     # address1 = models.TextField()
     # address2 = models.TextField(null=True, blank=True)
