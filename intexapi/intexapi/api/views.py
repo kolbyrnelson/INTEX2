@@ -74,17 +74,6 @@ class DonationList(APIView):
              prods = prods.filter(name_contains=request.query_params.get('profile_url'))
         if request.query_params.get('verified'):
              prods = prods.filter(name_contains=request.query_params.get('verified'))
-        
-        
-
-        # if request.query_params.get('name'):
-        #     prods = prods.filter(name_contains=request.query_params.get('name'))
-        # if request.query_params.get('filename'):
-        #     prods = prods.filter(name_contains=request.query_params.get('filename'))
-        # if request.query_params.get('description'):
-        #     prods = prods.filter(name_contains=request.query_params.get('description'))
-        # if request.query_params.get('price'):
-        #     prods = prods.filter(name_contains=request.query_params.get('price'))
 
         serializer = DonationSerializer(dons, many=True)
         return Response(serializer.data)
