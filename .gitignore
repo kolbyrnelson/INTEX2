@@ -1,0 +1,26 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+campaignanalytics/node_modules
+campaignanalytics/.pnp
+campaignanalytics/.pnp.js
+
+# testing
+campaignanalytics/coverage
+
+# production
+campaignanalytics/build
+
+# misc
+campaignanalytics/.DS_Store
+campaignanalytics/.env.local
+campaignanalytics/.env.development.local
+campaignanalytics/.env.test.local
+campaignanalytics/.env.production.local
+
+campaignanalytics/npm-debug.log*
+campaignanalytics/yarn-debug.log*
+campaignanalytics/yarn-error.log*
+
+
+intexapi/env
