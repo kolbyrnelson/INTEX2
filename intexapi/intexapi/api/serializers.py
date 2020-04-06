@@ -25,5 +25,5 @@ class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Update
         fields = [ 'id', 'update_id', 'campaign_id', 'collected_date', 'photo_url', 'created_at',
-        'updates_author', 'updates_author_type', 'updates_text', 'comments' ]
+        'updates_author', 'updates_author_type', 'updates_text', 'comments']
         # fields = [ 'name', 'address1', 'address2', 'city', 'state', 'zipcode', 'total', 'items', 'payment_intent' ]

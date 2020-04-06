@@ -48,8 +48,9 @@ class Campaign(models.Model):
 
 
 class Donation(models.Model):
-    campaign_id = models.TextField()
-    collected_date = models.TextField() # This needs to be a forign key 
+    donation_id = models.TextField()
+    campaign_id = models.ForeignKey(Campaign, on_delete=models.PROTECT) # This needs to be a forign key 
+    collected_date = models.TextField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     is_offline = models.TextField()
     is_anonymous = models.TextField()
@@ -66,8 +67,8 @@ class Donation(models.Model):
     # price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Update(models.Model):
-    update_id = models.TextField()  # This needs to be a forign key 
-    campaign_id = models.TextField()
+    update_id = models.TextField()  
+    campaign_id = models.ForeignKey(Campaign, on_delete=models.PROTECT) # This needs to be a forign key 
     collected_date = models.TextField()
     photo_url = models.TextField()
     created_at = models.TextField()
