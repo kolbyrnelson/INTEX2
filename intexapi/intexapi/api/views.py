@@ -13,8 +13,8 @@ class CampaignList(APIView):
     @csrf_exempt
     def get(self, request, format=None):
         camps = Campaign.objects.all()
-        if request.query_params.get('title'):
-            camps = camps.filter(title__contains=request.query_params.get('title'))
+        if request.query_params.get('campaign_id'):
+            camps = camps.filter(title__contains=request.query_params.get('campaign_id'))
         serializer = CampaignSerializer(camps, many=True)
         return Response(serializer.data)
 
@@ -38,7 +38,7 @@ class CampaignDetails(APIView):
     @csrf_exempt
     def put(self, request, pk, format=None):
         camp = Campaign.objects.get(id=pk)
-        serializer = CampaignSerializer(cat, data=request.data)
+        serializer = CampaignSerializer(camp, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -55,6 +55,27 @@ class DonationList(APIView):
     @csrf_exempt
     def get(self, request, format=None):
         dons = Donation.objects.all()
+
+        if request.query_params.get('donation_id'):
+             prods = prods.filter(name_contains=request.query_params.get('donation_id'))
+        if request.query_params.get('collected_date'):
+             prods = prods.filter(name_contains=request.query_params.get('collected_date'))
+        if request.query_params.get('amount'):
+             prods = prods.filter(name_contains=request.query_params.get('amount'))
+        if request.query_params.get('is_offline'):
+             prods = prods.filter(name_contains=request.query_params.get('is_offline'))
+        if request.query_params.get('is_anonymous'):
+             prods = prods.filter(name_contains=request.query_params.get('is_anonymous'))
+        if request.query_params.get('name'):
+             prods = prods.filter(name_contains=request.query_params.get('name'))
+        if request.query_params.get('created_at'):
+             prods = prods.filter(name_contains=request.query_params.get('created_at'))
+        if request.query_params.get('profile_url'):
+             prods = prods.filter(name_contains=request.query_params.get('profile_url'))
+        if request.query_params.get('verified'):
+             prods = prods.filter(name_contains=request.query_params.get('verified'))
+        
+        
 
         # if request.query_params.get('name'):
         #     prods = prods.filter(name_contains=request.query_params.get('name'))
@@ -105,8 +126,8 @@ class UpdateList(APIView):
     @csrf_exempt
     def get(self, request, format=None):
         ups = Update.objects.all()
-        if request.query_params.get('title'):
-            ups = ups.filter(title__contains=request.query_params.get('title'))
+        if request.query_params.get('update_id'):
+            ups = ups.filter(title__contains=request.query_params.get('update_id'))
         serializer = UpdateSerializer(ups, many=True)
         return Response(serializer.data)
 
