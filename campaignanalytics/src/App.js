@@ -11,7 +11,7 @@ import Help from './help';
 import About from './about';
 import Category from './category';
 import Details from './details';
-import Cart from './cart';
+import Search from './search';
 import Checkout from './checkout';
 import Receipt from './receipt';
 
@@ -31,8 +31,8 @@ return (
                   <Route path="/about">
                     <About />
                   </Route>
-                  <Route path="/cart">
-                    <Cart />
+                  <Route path="/search">
+                    <Search />
                   </Route>
                   <Route path="/help">
                     <Help />
