@@ -24,3 +24,4 @@ campaignanalytics/yarn-error.log*
 
 
 intexapi/env
+*.pyc
