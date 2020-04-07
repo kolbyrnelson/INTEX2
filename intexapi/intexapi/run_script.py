@@ -4,7 +4,7 @@ import json
 import os
 
 # initialize django
-os.environ['DJANGO_SETTINGS_MODULE'] = 'arcticapiproject.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'intexapi.settings'
 django.setup()
 
 # regular imports
@@ -12,7 +12,7 @@ from api.models import Campaign, Donation, Update
 
 # main script
 def main():
-    with open('campaign.json') as json_file:
+    with open('campaign.json', encoding='utf8') as json_file:
         data = json.load(json_file)
     
     for camp in data['campaign']:
@@ -25,7 +25,7 @@ def main():
         
         dbcamp = Campaign()
 
-        dbcamp.url = camp['url']
+        dbcamp.url= camp['url']
         dbcamp.campaign_id = camp['campaign_id']
         dbcamp.auto_fb_post_mode = camp['auto_fb_post_mode']
         dbcamp.collected_date = camp['collected_date']
@@ -70,7 +70,8 @@ def main():
         
         dbcamp.save()
     
-    # with open('donation.json') as json_file:
+    # print('Done with campaigns')
+    # with open('donation.json', encoding='utf8') as json_file:
     #     data = json.load(json_file)
 
     # for don in data['donation']:
@@ -78,7 +79,7 @@ def main():
     #     dbdon = Donation()
 
     #     dbdon.donation_id = don['donation_id']
-    #     dbdon.campaign_id = don['campaign_id']
+    #     dbdon.campaign = Campaign.objects.get(campaign_id=don['campaign_id'])
     #     dbdon.collected_date = don['collected_date']
     #     dbdon.amount = don['amount']
     #     dbdon.is_offline = don['is_offline']
@@ -89,8 +90,9 @@ def main():
     #     dbdon.verified = don['verified']
 
     #     dbdon.save()
+    # print('Done with donations')
 
-    with open('update.json') as json_file:
+    with open('update.json', encoding='utf8') as json_file:
         data = json.load(json_file)
     
     for up in data['update']:
@@ -98,7 +100,7 @@ def main():
         dbup = Update()
 
         dbup.update_id = up['update_id']
-        dbup.campaign_id = up['campaign_id']
+        dbup.campaign = Campaign.objects.get(campaign_id=up['campaign_id'])
         dbup.collected_date = up['collected_date']
         dbup.photo_url = up['photo_url']
         dbup.created_at = up['created_at']
@@ -108,6 +110,8 @@ def main():
         dbup.comments = up['comments']
 
         dbup.save()
+    print('Done with updates')
+    print('All done.')
 
 # bootstrap
 if __name__ == '__main__':

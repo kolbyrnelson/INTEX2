@@ -9,9 +9,9 @@ urlpatterns = [
     # path('product/<int:pk>/', views.ProductDetail.as_view()),
     # path('CreateSale/', views.CreateSale.as_view())
     path('campaign/', views.CampaignList.as_view()),
-    path('campaign/<int:pk>/', views.CampaignDetails.as_view()),
+    path('campaign/<str:pk>/', views.CampaignDetails.as_view()),
     path('donation/', views.DonationList.as_view()),
-    path('donation/<int:pk>/', views.DonationDetails.as_view()),
+    path('donation/<str:pk>/', views.DonationDetails.as_view()),
     path('update/', views.UpdateList.as_view()),
-    path('update/<int:pk>/', views.UpdateDetails.as_view()),
+    path('update/<str:pk>/', views.UpdateDetails.as_view()),
 ]

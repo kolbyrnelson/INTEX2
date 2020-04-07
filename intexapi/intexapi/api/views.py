@@ -31,13 +31,13 @@ class CampaignDetails(APIView):
     '''Work with an individual Category object'''
     @csrf_exempt
     def get(self, request, pk, format=None):
-        camp = Campaign.objects.get(id=pk)
+        camp = Campaign.objects.get(campaign_id=pk)
         serializer = CampaignSerializer(camp)
         return Response(serializer.data)
 
     @csrf_exempt
     def put(self, request, pk, format=None):
-        camp = Campaign.objects.get(id=pk)
+        camp = Campaign.objects.get(campaign_id=pk)
         serializer = CampaignSerializer(camp, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -46,7 +46,7 @@ class CampaignDetails(APIView):
 
     @csrf_exempt
     def delete(self, request, pk, format=None):
-        camp = Campaign.objects.get(id=pk)
+        camp = Campaign.objects.get(campaign_id=pk)
         camp.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -91,13 +91,13 @@ class DonationDetails(APIView):
     '''Work with an individual Product object'''
     @csrf_exempt
     def get(self, request, pk, format=None):
-        don = Donation.objects.get(id=pk)
+        don = Donation.objects.get(donation_id=pk)
         serializer = DonationSerializer(don)
         return Response(serializer.data)
 
     @csrf_exempt
     def put(self, request, pk, format=None):
-        don = Donation.objects.get(id=pk)
+        don = Donation.objects.get(donation_id=pk)
         serializer = DonationSerializer(don, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -106,7 +106,7 @@ class DonationDetails(APIView):
 
     @csrf_exempt
     def delete(self, request, pk, format=None):
-        don = Donation.objects.get(id=pk)
+        don = Donation.objects.get(donation_id=pk)
         don.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -133,13 +133,13 @@ class UpdateDetails(APIView):
     '''Work with an individual Category object'''
     @csrf_exempt
     def get(self, request, pk, format=None):
-        up = Update.objects.get(id=pk)
+        up = Update.objects.get(update_id=pk)
         serializer = UpdateSerializer(up)
         return Response(serializer.data)
 
     @csrf_exempt
     def put(self, request, pk, format=None):
-        up = Update.objects.get(id=pk)
+        up = Update.objects.get(update_id=pk)
         serializer = UpdateSerializer(up, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -148,7 +148,7 @@ class UpdateDetails(APIView):
 
     @csrf_exempt
     def delete(self, request, pk, format=None):
-        up = Update.objects.get(id=pk)
+        up = Update.objects.get(update_id=pk)
         up.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
