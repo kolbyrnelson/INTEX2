@@ -28,3 +28,4 @@ intexapi/env
 intexapi/intexapi/intexapi/__pycache__
 
 intexapi/intexapi/api/__pycache__
+intexapi/intexapi/db.sqlite3
