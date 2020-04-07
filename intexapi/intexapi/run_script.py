@@ -12,7 +12,7 @@ from api.models import Campaign, Donation, Update
 
 # main script
 def main():
-    with open('campaign_small.json', encoding='utf8') as json_file:
+    with open('campaign_small_v1.json', encoding='utf8') as json_file:
         data = json.load(json_file)
     
     for camp in data['campaign']:
