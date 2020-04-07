@@ -11,23 +11,24 @@ export default class AppProvider extends React.Component {
         super(props)
         this.actions = {
             // methods here
-            addToCart: this.addToCart,
-            removeFromCart: this.removeFromCart,
-            getCartTotal: this.getCartTotal,
-            clearCart: this.clearCart
+            // addToCart: this.addToCart,
+            // removeFromCart: this.removeFromCart,
+            // getCartTotal: this.getCartTotal,
+            // clearCart: this.clearCart
             // accessed using context.method
         }
         this.state = {
-            categories: [],
-            products: [],
-            cart: {},
-            cartCount: 0,
-            totalPrice: 0
+            campaign: [],
+            donation: [],
+            update: [],
+            // cart: {},
+            // cartCount: 0,
+            // totalPrice: 0
         }
     }
 
     render() {
-        if (!this.state.categories) {
+        if (!this.state.campaign) {
             return <div>Loading...</div>
         }
         return (
@@ -91,10 +92,13 @@ export default class AppProvider extends React.Component {
     }
 
     async componentDidMount() {
-        const resp = await axios.get('localhost:8000/category/')
-        const prod = await axios.get('localhost:8000/product/')
+        const cam = await axios.get('http://localhost:8000/api/campaign/')
+        const don = await axios.get('http://localhost:8000/api/donation/')
+        const upd = await axios.get('http://localhost:8000/api/update/')
 
-        this.setState({categories: resp.data, products: prod.data})
+        // console.log(cam.data)
+
+        this.setState({campaign: cam.data, donation: don.data, update: upd.data})
     }
 
 }
