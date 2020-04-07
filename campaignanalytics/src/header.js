@@ -22,7 +22,7 @@ export default function HeaderContainer(props){
                     <Link to="/help" className="nav-link">Help</Link>
                 </bs.Nav>
                 <bs.Nav>
-                    <Link to="/cart" className="fas fa-shopping-cart"> {context.cartCount}</Link>
+                    <Link to="/search" className="fas fa-search nav-link">  Search</Link>
                 </bs.Nav>
                 <bs.Nav>
                 {   <bs.NavDropdown title="Welcome, Kolby" id="basic-nav-dropdown" alignright="true">
