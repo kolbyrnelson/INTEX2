@@ -3,8 +3,8 @@ import AppContext from './context';
 import './App.scss';
 import * as bs from 'react-bootstrap';
 import ProductCard from './productCard';
-// import CAMPAINS from './campains_small.js'
 
+// import CAMPAINS from './campains_small.js'
 
 export default function Home(props) {
 
