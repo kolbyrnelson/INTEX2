@@ -77,19 +77,22 @@ def main():
     for don in data['donation']:
 
         dbdon = Donation()
+        if not Campaign.objects.get(campaign_id=don['campaign_id']):
+            print('Campaign # ' + don['campaign_id' + ' not found'])
+            continue
+        else:
+            dbdon.donation_id = don['donation_id']
+            dbdon.campaign = Campaign.objects.get(campaign_id=don['campaign_id'])
+            dbdon.collected_date = don['collected_date']
+            dbdon.amount = don['amount']
+            dbdon.is_offline = don['is_offline']
+            dbdon.is_anonymous = don['is_anonymous']
+            dbdon.name = don['name']
+            dbdon.created_at = don['created_at']
+            dbdon.profile_url = don['profile_url']
+            dbdon.verified = don['verified']
 
-        dbdon.donation_id = don['donation_id']
-        dbdon.campaign = Campaign.objects.get(campaign_id=don['campaign_id'])
-        dbdon.collected_date = don['collected_date']
-        dbdon.amount = don['amount']
-        dbdon.is_offline = don['is_offline']
-        dbdon.is_anonymous = don['is_anonymous']
-        dbdon.name = don['name']
-        dbdon.created_at = don['created_at']
-        dbdon.profile_url = don['profile_url']
-        dbdon.verified = don['verified']
-
-        dbdon.save()
+            dbdon.save()
     print('Done with donations')
 
     with open('update.json', encoding='utf8') as json_file:
@@ -98,18 +101,21 @@ def main():
     for up in data['update']:
 
         dbup = Update()
+        if not Campaign.objects.get(campaign_id=up['campaign_id']):
+            print('Campaign # ' + up['campaign_id' + ' not found'])
+            continue
+        else:
+            dbup.update_id = up['update_id']
+            dbup.campaign = Campaign.objects.get(campaign_id=up['campaign_id'])
+            dbup.collected_date = up['collected_date']
+            dbup.photo_url = up['photo_url']
+            dbup.created_at = up['created_at']
+            dbup.updates_author = up['updates_author']
+            dbup.updates_author_type = up['updates_author_type']
+            dbup.updates_text = up['updates_text']
+            dbup.comments = up['comments']
 
-        dbup.update_id = up['update_id']
-        dbup.campaign = Campaign.objects.get(campaign_id=up['campaign_id'])
-        dbup.collected_date = up['collected_date']
-        dbup.photo_url = up['photo_url']
-        dbup.created_at = up['created_at']
-        dbup.updates_author = up['updates_author']
-        dbup.updates_author_type = up['updates_author_type']
-        dbup.updates_text = up['updates_text']
-        dbup.comments = up['comments']
-
-        dbup.save()
+            dbup.save()
     print('Done with updates')
     print('All done.')
 
