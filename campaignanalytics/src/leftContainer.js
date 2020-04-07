@@ -30,15 +30,15 @@ export default function LeftContainer(props) {
     return(
         <bs.Nav className="flex-column">
             <Link to={'/'} className='nav-link'>
-                All Products ({context.products.length})
+                All Campaigns ({context.campaign.length})
             </Link>
-            {context.categories.map((cat) => {
+            {context.campaign.map((cat) => {
                 return (
                     <Link
-                        key={cat.id}
-                        to={`/category/${cat.id}`}
+                        key={cat.campaign_id}
+                        to={`/category/${cat.category_id}`}
                         className='nav-link'
-                    >{`${cat.title} (${context.products.filter(prod => prod.category === cat.id).length})`}
+                    >{`${cat.category_id} (${context.campaign.filter(prod => prod.category_id === cat.category_id).length})`}
                     </Link>
             )
             })}
