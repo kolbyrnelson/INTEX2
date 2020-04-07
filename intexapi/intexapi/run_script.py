@@ -70,27 +70,27 @@ def main():
         
         dbcamp.save()
     
-    # print('Done with campaigns')
-    # with open('donation.json', encoding='utf8') as json_file:
-    #     data = json.load(json_file)
+    print('Done with campaigns')
+    with open('donation.json', encoding='utf8') as json_file:
+        data = json.load(json_file)
 
-    # for don in data['donation']:
+    for don in data['donation']:
 
-    #     dbdon = Donation()
+        dbdon = Donation()
 
-    #     dbdon.donation_id = don['donation_id']
-    #     dbdon.campaign = Campaign.objects.get(campaign_id=don['campaign_id'])
-    #     dbdon.collected_date = don['collected_date']
-    #     dbdon.amount = don['amount']
-    #     dbdon.is_offline = don['is_offline']
-    #     dbdon.is_anonymous = don['is_anonymous']
-    #     dbdon.name = don['name']
-    #     dbdon.created_at = don['created_at']
-    #     dbdon.profile_url = don['profile_url']
-    #     dbdon.verified = don['verified']
+        dbdon.donation_id = don['donation_id']
+        dbdon.campaign = Campaign.objects.get(campaign_id=don['campaign_id'])
+        dbdon.collected_date = don['collected_date']
+        dbdon.amount = don['amount']
+        dbdon.is_offline = don['is_offline']
+        dbdon.is_anonymous = don['is_anonymous']
+        dbdon.name = don['name']
+        dbdon.created_at = don['created_at']
+        dbdon.profile_url = don['profile_url']
+        dbdon.verified = don['verified']
 
-    #     dbdon.save()
-    # print('Done with donations')
+        dbdon.save()
+    print('Done with donations')
 
     with open('update.json', encoding='utf8') as json_file:
         data = json.load(json_file)
