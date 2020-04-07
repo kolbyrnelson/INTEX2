@@ -19,7 +19,6 @@ export default function Details(props) {
     }
     
     return (
-        
         <bs.Container fluid className="p-0">
             <div className="float-right" style={{position:"relative", margin:"2rem"}}>
                 <bs.Image src={img} style={{height:"400px", width:"400px"}} />
@@ -49,10 +48,22 @@ export default function Details(props) {
             
             <div style={{padding:'1.5rem', marginRight:'3rem'}}>
                 <br/>
-                <h4>{item.name}</h4>
-                <CurrencyFormat value={parseFloat(item.price).toFixed(2)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={item.price}/>
+                <h4>{item.title}</h4>
+
+                <CurrencyFormat value={parseFloat(item.current_amount).toFixed(2)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={item.current_amount}/>
+                <p>Out Of</p>
+                <CurrencyFormat value={parseFloat(item.goal).toFixed(2)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={item.goal}/>
+
                 <br/><br/>
                 <p>{item.description}</p>
+
+                <br/><br/>
+                <p>Years Active: {(item.days_active / 365).toFixed(2)}</p>
+                <p>Donation Count: {(item.donators)}</p>
+
+                <br/><br/>
+                <p>City: {item.location_city}</p>
+                <p>Country: {item.location_country}</p>
                 {/* <bs.Button variant='warning' onClick= {e=>{
                     context.addToCart(item.id);
                 }}>Add To Cart</bs.Button> */}

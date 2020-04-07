@@ -16,6 +16,7 @@ export default class AppProvider extends React.Component {
             // getCartTotal: this.getCartTotal,
             // clearCart: this.clearCart
             // accessed using context.method
+            loadMoreCamp: this.loadMoreCamp
         }
         this.state = {
             campaign: [],
@@ -24,6 +25,8 @@ export default class AppProvider extends React.Component {
             // cart: {},
             // cartCount: 0,
             // totalPrice: 0
+            showCount: 8,
+            showMore: false
         }
     }
 
@@ -36,6 +39,15 @@ export default class AppProvider extends React.Component {
                 <App />
             </AppContext.Provider>
         )
+    }
+
+    loadMoreCamp = (input) => {
+        this.setState(state => produce(state, draft => {
+            if(input == true) {
+                draft.showMore = input
+                draft.showCount = draft.showCount + 8
+            }
+        }))
     }
 
     addToCart = (pid) => {

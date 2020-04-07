@@ -11,7 +11,7 @@ export default function ProductCard(props) {
 
     return (
             <bs.Col md='3' key={prod.campaign_id}>
-                <bs.Card border="dark" className="m-3">
+                <bs.Card border="dark" className="m-3" style={{height:"36em"}}>
                     <Link className='btn btn-outline-info' to={`/details/${prod.campaign_id}`} style={{
                         position:"absolute", 
                         top:0, 
@@ -19,7 +19,7 @@ export default function ProductCard(props) {
                         }}>
                         Details
                     </Link>
-                    <bs.Card.Img src={prod.campaign_image_url}></bs.Card.Img>
+                    <bs.Card.Img src={prod.campaign_image_url} style={{height:"400px", width: "100%"}}></bs.Card.Img>
                     <bs.Card.Footer>
                         <bs.Card.Title style={{fontSize:"1.25vw"}}>
                             {prod.title}
