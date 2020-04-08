@@ -13,7 +13,7 @@ import AppContext from './context';
 function Checkout(props) {
     // we'll add Stripe's Elements component here later
     return (
-        <bs.Container>
+        <bs.Container fluid className="text-center my-3" style={{width:"50%"}}>
             <CheckoutController />
         </bs.Container>
     )
@@ -22,10 +22,6 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext);
-    // const stripe = useStripe();
-    // const elements = useElements();
-    // const [stripeError, setStripeError] = React.useState(null)
-    // let history = useHistory();
     return (
         <Formik
             initialValues={{
@@ -51,13 +47,6 @@ const CheckoutController = props => {
                 location_zip: '',
                 averageMoneyPerDay: '0',
                 donationsPerDay: '0',
-
-                // age: '',
-                // sex: '',
-                // bmi: '',
-                // children: '',
-                // smoker: '',
-                // region: '',
             }}
             validateOnChange={false}
             validateOnBlur={false}
@@ -78,30 +67,8 @@ const CheckoutController = props => {
             }}
             onSubmit={async (values, actions) => {
                 console.log('values:', values);
-                // console.log('actions:', actions);
-                
-                // let listItems = [];
-                // for (const [pid, qty] of Object.entries(context.cart)) {
-                //     const product = context.products[pid]
-                //     if (product) {
-                //          listItems.push({
-                //               pid: pid,
-                //               qty: qty,
-                //               price: product.price,
-                //          })
-                //     }
-                // }
-                
-                // try{
-                    
-                const resp = await axios.post('http://localhost:8000/api/CreateSale/', {
-                    // age: values.age,
-                    // sex: values.sex,
-                    // bmi: values.bmi,
-                    // children: values.children,
-                    // smoker: values.smoker,
-                    // region: values.region,
 
+                const resp = await axios.post('http://localhost:8000/api/CreateSale/', {
                     column: values.column,
                     unnamed: values.unnamed,
                     campaign_id: values.campaign_id,
@@ -126,45 +93,13 @@ const CheckoutController = props => {
                 })
 
                 console.log(resp)
-                // }catch(err) {
-                //     console.log('Post error:', err)
-                //     //set state or something to let customer know post failed
-                // }
 
-                // const stripeResp = await stripe.confirmCardPayment(resp.data['client_secret'], {
-                //     payment_method: {
-                //       card: elements.getElement(CardElement),
-                //       billing_details: {
-                //         name: values.name,
-                //       },
-                //     }
-                //   });
-
-                // console.log('stripeResp:', stripeResp);
-                // actions.setSubmitting(false);
-                // if (stripeResp.error) {
-                //     setStripeError(stripeResp.error.message);
-                //     // Show error to your customer (e.g., insufficient funds)
-                //     // console.log(stripeResp.error.message);
-                // } else {
-                // // The payment has been processed!
-                // if (stripeResp.paymentIntent.status === 'succeeded') {
-                //     context.clearCart();
-                //     history.push('/receipt');
-                //     // Show a success message to your customer
-                //     // There's a risk of the customer closing the window before callback
-                //     // execution. Set up a webhook or plugin to listen for the
-                //     // payment_intent.succeeded event that handles any business critical
-                //     // post-payment actions.
-                // }
-                // console.log(resp.data)
                 await new Promise(resolve => {
                     setTimeout(() => {  // wait 2 seconds, then set the form as "not submitting"
                         resolve()
                     }, 2000)
                 })
-                // console.log('after the 2 seconds')
-            }}// }}}
+            }}
         >{form => (
             <div> 
                 <PaymentForm form={form} total={context.totalPrice} />
@@ -179,59 +114,48 @@ const PaymentForm = props => (
         <bs.CardGroup>
             <bs.Card>
                 <bs.Card.Body>
-                    <bs.Card.Title style={{ color: 'black', fontSize: '30px', fontWeight:'bold', textAlign: 'center'}}>Go-Fund-Me Data</bs.Card.Title>
-
-                    <Input title="Title:" name="title" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Description:" name="description" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Goal:" name="goal" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="City:" name="location_city" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Country:" name="location_country" type="text" disabled={props.form.isSubmitting} />
-                    <Input title="Zipcode:" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Currency Type:" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Beneficiary:" name="has_beneficiary" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="FaceBook:" name="auto_fb_post_mode" type="text" disabled={props.form.isSubmitting}/>
-                    {/* <bs.Form.Group  disabled={props.form.isSubmitting}>
-                        <bs.Form.Label>Beneficiary?</bs.Form.Label>
-                        <bs.Form.Control type="dropdown" as="select" defaultValue="" name="has_beneficiary">
-                            <option value=""></option>
-                            <option value="TRUE">Yes</option>
-                            <option value="FALSE">No</option>
-                        </bs.Form.Control>
+                    <bs.Card.Title style={{ color: 'black', fontSize: '30px', textAlign: 'center'}}>Go-Fund-Me Data</bs.Card.Title>
+                    <p>Enter the details for the GoFundMe Campaign you are planning, and we will predict how successful it will be!</p>
+                    <Input title="Title" name="title" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Description" name="description" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Goal" name="goal" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="City" name="location_city" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Country" name="location_country" type="text" disabled={props.form.isSubmitting} />
+                    <Input title="Zipcode" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Currency Type" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
+                    <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
+                        <bs.Form.Label column sm={4} className="text-right">Has Beneficiary?</bs.Form.Label>
+                        <bs.Col sm={8}>
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="has_beneficiary">
+                                <option value=""></option>
+                                <option value={1}>Yes</option>
+                                <option value={0}>No</option>
+                            </bs.Form.Control>
+                        </bs.Col>
                     </bs.Form.Group> 
-                    <bs.Form.Group  disabled={props.form.isSubmitting}>
-                        <bs.Form.Label>Post to Facebook?</bs.Form.Label>
-                        <bs.Form.Control type="dropdown" as="select" defaultValue="" name="auto_fb_post_mode">
-                            <option value=""></option>
-                            <option value="TRUE">Yes</option>
-                            <option value="FALSE">No</option>
-                        </bs.Form.Control>
-                    </bs.Form.Group>                  */}
-
+                    <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
+                        <bs.Form.Label column sm={4} className="text-right">Auto Post to Facebook?</bs.Form.Label>
+                        <bs.Col sm={8}>
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="auto_fb_post_mode">
+                                <option value=""></option>
+                                <option value={1}>Yes</option>
+                                <option value={0}>No</option>
+                            </bs.Form.Control>
+                        </bs.Col>
+                    </bs.Form.Group>                 
                 </bs.Card.Body>
+                <bs.Button size="lg" className='mt-1 align-center text-center' type="submit" disabled={props.form.isSubmitting}>
+                    {props.form.isSubmitting &&
+                    <bs.Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />}
+                    Calculate
+                </bs.Button>
             </bs.Card>
-            <bs.Card>
-                <bs.Card.Body>
-                    <bs.Card.Title style={{ color: 'black', fontSize: '30px', fontWeight:'bold', textAlign: 'center'}}>Calculate</bs.Card.Title>
-                    {/* <label>Card details</label> */}
-                    {/* <CardElement options={CARD_ELEMENT_OPTIONS}/> */}
-
-                    <div style={{ padding: '20px', textAlign: 'center' }}>
-                        <bs.Button size="lg" className='mt-5 align-center text-center' variant="success" type="submit" disabled={props.form.isSubmitting}>
-                            {props.form.isSubmitting &&
-                            <bs.Spinner
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                            />}
-                            Submit
-                        </bs.Button>
-                    </div>
-                </bs.Card.Body>
-
-            </bs.Card>
-        {/* <bs.Button variant="success" type="submit" style={{"marginLeft":"23%"}}>Submit</bs.Button> */}
         </bs.CardGroup>
 
     </Form>
@@ -254,21 +178,23 @@ const optionList = (props) => (
 const Input = (props) => (
     <div>
         <Field name={props.name}>{rProps => (
-            <bs.Form.Group>
+            <bs.Form.Group as={bs.Row}>
                 {props.title &&
-                    <bs.Form.Label>{props.title}</bs.Form.Label>
+                    <bs.Form.Label column sm={4} className="text-right">{props.title}</bs.Form.Label>
                 }
-                <bs.Form.Control
-                    type={props.type}
-                    as={props.as}
-                    placeholder={props.placeholder}
-                    disabled={rProps.form.isSubmitting}          
-                    {...rProps.field}
-                >
-                {props.options &&
-                    optionList(props)
-                }
-                </bs.Form.Control>
+                <bs.Col sm={8}>
+                    <bs.Form.Control
+                        type={props.type}
+                        as={props.as}
+                        placeholder={props.placeholder}
+                        disabled={rProps.form.isSubmitting}          
+                        {...rProps.field}
+                    >
+                    {props.options &&
+                        optionList(props)
+                    }
+                    </bs.Form.Control>
+                </bs.Col>
                 {rProps.meta.touched && rProps.meta.error &&
                     <div className="text-danger">{rProps.meta.error}</div>
                 }
