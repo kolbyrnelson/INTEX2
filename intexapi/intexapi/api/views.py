@@ -217,23 +217,109 @@ class CreateSale(APIView):
         # region = str(request.POST['region'])
         
         # formatting the data into a data object for the API call
-        data =  {
+        # data =  {
+        #             "Inputs": {
+        #                 "input1":
+        #                 {
+        #                     "ColumnNames": [ "age", "sex", "bmi", "children", "smoker", "region", "charges"],
+        #                     "Values": [[ body['age'], body['sex'], body['bmi'], body['children'], body['smoker'], body['region'], "0" ],]
+        #                 }, # in the values array above it may seem weird to put a value for the response var, but azure needs something
+        #             },
+        #             "GlobalParameters": {
+        #             }
+        #         }
+
+        data = {
                     "Inputs": {
-                        "input1":
-                        {
-                            "ColumnNames": [ "age", "sex", "bmi", "children", "smoker", "region", "charges"],
-                            "Values": [[ body['age'], body['sex'], body['bmi'], body['children'], body['smoker'], body['region'], "0" ],]
-                        }, # in the values array above it may seem weird to put a value for the response var, but azure needs something
+                        "input1": {
+                        "ColumnNames": [ 
+                            "Column 0",
+                            "Unnamed: 0",
+                            "campaign_id",
+                            "auto_fb_post_mode",
+                            "currencycode",
+                            "current_amount",
+                            "goal",
+                            "donators",
+                            "days_active",
+                            "title",
+                            "description",
+                            "has_beneficiary",
+                            "user_id",
+                            "visible_in_search",
+                            "is_launched",
+                            "campaign_hearts",
+                            "social_share_total",
+                            "location_city",
+                            "location_country",
+                            "location_zip",
+                            "averageMoneyPerDay",
+                            "donationsPerDay"
+                        ],
+                        "Values": [
+                            [
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "value",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "value",
+                            "value",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "value",
+                            "value",
+                            "value",
+                            "0",
+                            "0"
+                            ],
+                            [
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "value",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "value",
+                            "value",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "value",
+                            "value",
+                            "value",
+                            "0",
+                            "0"
+                            ]
+                        ]
+                        }
                     },
-                    "GlobalParameters": {
-                    }
-                }
+                    "GlobalParameters": {}
+            }
 
         # the API call
         bodys = str.encode(json.dumps(data))
-        url = 'https://ussouthcentral.services.azureml.net/workspaces/5356028fcc494f24b2da50eee758907a/services/6aea8038c831480186111165197b1f79/execute?api-version=2.0&details=true'
-        api_key = 'pEN3GQwATQpT30eMdeVM12LyqIxX3wS1LYyhhuAFqTbeqWi/1Kt/2zhjQDLLk1GHWvrgrt/U6LCVTfc52HSTuQ=='
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
+        api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEI3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
+
+        # url = 'https://ussouthcentral.services.azureml.net/workspaces/5356028fcc494f24b2da50eee758907a/services/6aea8038c831480186111165197b1f79/execute?api-version=2.0&details=true'
+        # api_key = 'pEN3GQwATQpT30eMdeVM12LyqIxX3wS1LYyhhuAFqTbeqWi/1Kt/2zhjQDLLk1GHWvrgrt/U6LCVTfc52HSTuQ=='
         # Replace my url and api_key with your own values
+       
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
         # If you are using Python 3+, replace urllib2 with urllib.request
