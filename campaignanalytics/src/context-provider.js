@@ -10,23 +10,18 @@ export default class AppProvider extends React.Component {
     constructor(props) {
         super(props)
         this.actions = {
-            // methods here
-            // addToCart: this.addToCart,
-            // removeFromCart: this.removeFromCart,
-            // getCartTotal: this.getCartTotal,
-            // clearCart: this.clearCart
             // accessed using context.method
-            loadMoreCamp: this.loadMoreCamp
+            loadMoreCamp: this.loadMoreCamp,
+            filterCampaigns: this.filterCampaigns,
+            resetShowCount: this.resetShowCount
         }
         this.state = {
             campaign: [],
             donation: [],
             update: [],
-            // cart: {},
-            // cartCount: 0,
-            // totalPrice: 0
             showCount: 8,
-            showMore: false
+            showMore: false,
+            filteredCampaigns: []
         }
     }
 
@@ -41,65 +36,49 @@ export default class AppProvider extends React.Component {
         )
     }
 
+    resetShowCount = () => {
+        this.setState(state => produce(state, draft => {
+            draft.showCount = 8;
+        }))
+    }
+
     loadMoreCamp = (input) => {
         this.setState(state => produce(state, draft => {
-            if(input == true) {
+            if(input === true) {
                 draft.showMore = input
                 draft.showCount = draft.showCount + 8
             }
         }))
     }
 
-    addToCart = (pid) => {
+    filterCampaigns = (goalFilter, countryFilter, stateFilter) => {
         this.setState(state => produce(state, draft => {
-            
-            if(!draft.cart[pid]){
-                draft.cart[pid] = 1;
+            if(goalFilter === "<2000"){
+                draft.filteredCampaigns = draft.campaign.filter(camp => parseInt(camp.goal) < 2000);
+            }
+            else if(goalFilter === "2000-9999"){
+                draft.filteredCampaigns = draft.campaign.filter(camp => parseInt(camp.goal) >= 2000 && parseInt(camp.goal) < 10000);
+            }
+            else if(goalFilter === "10000-29999"){
+                draft.filteredCampaigns = draft.campaign.filter(camp => parseInt(camp.goal) >= 10000 && parseInt(camp.goal) < 30000);
+            }
+            else if(goalFilter === ">=30000"){
+                draft.filteredCampaigns = draft.campaign.filter(camp => parseInt(camp.goal) >= 30000);
+
             }
             else{
-                draft.cart[pid] += 1;
+                draft.filteredCampaigns = draft.campaign;
             }
 
-            let entries = Object.values(draft.cart);
-            draft.cartCount = 0;
+            if(countryFilter !== ""){
+                draft.filteredCampaigns = draft.filteredCampaigns.filter(camp => camp.location_country === countryFilter);
 
-            for (let item of entries){
-                draft.cartCount += item;
             }
-        }))
-        this.getCartTotal();
-    }
 
-    removeFromCart = (pid) => {
-        this.setState(state => produce(state, draft => {
+            if(stateFilter !== ""){
+                draft.filteredCampaigns = draft.filteredCampaigns.filter(camp => camp.location_city.slice(-2) === stateFilter);
+            }   
             
-            delete draft.cart[pid];
-
-            let entries = Object.values(draft.cart);
-            draft.cartCount = 0;
-
-            for (let item of entries){
-                draft.cartCount += item;
-            }
-        }))
-        this.getCartTotal();
-    }
-
-    clearCart = (cart) => {
-        this.setState(state => produce(state, draft => {
-            draft.cart = {};
-            draft.cartCount = 0;
-        }))
-    }
-
-    getCartTotal = (pid) => {
-        this.setState(state => produce(state, draft => {
-            let subtotal = 0;
-            Object.entries(draft.cart).forEach(([key,value]) => {
-                const prod = draft.products.find(({ id }) => id === parseInt(key))
-                subtotal = (parseFloat(prod.price)*value) + subtotal
-            })
-            draft.totalPrice = subtotal;
         }))
     }
 

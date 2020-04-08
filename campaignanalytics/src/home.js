@@ -7,10 +7,9 @@ import ProductCard from './productCard';
 // import CAMPAINS from './campains_small.js'
 
 export default function Home(props) {
-
     const context = React.useContext(AppContext)
     const numOfCamp =  context.showCount
-    console.log("This is num of Camp: " + numOfCamp)
+
     return (
         <bs.Container fluid className="text-center">
             <h3 className="mt-2">Welcome to Arctic Retailer</h3>
