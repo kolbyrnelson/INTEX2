@@ -29,8 +29,10 @@ const SearchForm = props => {
         const goalFilter = event.target.elements.formGoal.value;
         const countryFilter = event.target.elements.formCountry.value;
         const stateFilter = event.target.elements.formState.value;
+        const hasBeneficiaryFilter = event.target.elements.formHasBeneficiary.value;
+        const percentGoalFilter = event.target.elements.formPercentGoal.value;
 
-        context.filterCampaigns(goalFilter, countryFilter, stateFilter);
+        context.filterCampaigns(goalFilter, countryFilter, stateFilter, hasBeneficiaryFilter, percentGoalFilter);
         context.resetShowCount();
         history.push('/searchResults');
   };
@@ -52,6 +54,24 @@ const SearchForm = props => {
                                 <option value="2000-9999">$2,000 - $9,999</option>
                                 <option value="10000-29999">$10,000 - $29,999</option>
                                 <option value=">=30000">$30,000+</option>
+                            </bs.Form.Control>
+                        </bs.Form.Group>
+                        <bs.Form.Group>
+                            <bs.Form.Label>Percentage of Goal Complete</bs.Form.Label>
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="formPercentGoal">
+                                <option value=""></option>
+                                <option value="<5">Less Than 5%</option>
+                                <option value="5-15">5-15%</option>
+                                <option value="15-30">15-30%</option>
+                                <option value="30+">More Than 30%</option>
+                            </bs.Form.Control>
+                        </bs.Form.Group>
+                        <bs.Form.Group>
+                            <bs.Form.Label>Is there a Beneficiary?</bs.Form.Label>
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="formHasBeneficiary">
+                                <option value=""></option>
+                                <option value="True">Yes</option>
+                                <option value="False">No</option>
                             </bs.Form.Control>
                         </bs.Form.Group>
                         <bs.Form.Group>
