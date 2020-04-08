@@ -14,7 +14,7 @@ export default function ProductCard(props) {
         backgroundColor: "darkgray",
         color: "#004876",
         position: "absolute",
-        bottom:"1rem",
+        bottom:"1em",
         width:"86%"}}/>
 
     return (
@@ -40,15 +40,20 @@ export default function ProductCard(props) {
                             <Link to={`/details/${prod.campaign_id}`} style={{color:"black"}}>{prod.title}</Link>
                         </bs.Card.Title>
                         <bs.Card.Text className="mb-0" style={
-                            {textOverflow: "ellipsis",
+                            {position: "absolute",
+                            bottom: "4.2em",
+                            textOverflow: "ellipsis",
                             overflow: "hidden",
-                            width:"100%",
+                            width:"86%",
                             display: "-webkit-box",
                             WebkitLineClamp: "1",
                             WebkitBoxOrient: "vertical"}}>
-                            City: {prod.location_city}
+                            City: {prod.location_city ? prod.location_city : "Not Listed"}
                         </bs.Card.Text >
-                        <bs.Card.Text className="mb-1">
+                        <bs.Card.Text className="mb-1" style={
+                            {position: "absolute",
+                            bottom: "2.5em",
+                            width:"86%"}}>
                             <CurrencyFormat value={parseFloat(prod.current_amount).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.current_amount}/>
                             &nbsp;Out Of&nbsp;
                             <CurrencyFormat value={parseFloat(prod.goal).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.goal}/>
