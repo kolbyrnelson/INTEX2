@@ -52,7 +52,7 @@ export default function ProductCard(props) {
                         </bs.Card.Text >
                         <bs.Card.Text className="mb-1" style={
                             {position: "absolute",
-                            bottom: "2.5em",
+                            bottom: "2.1em",
                             width:"86%"}}>
                             <CurrencyFormat value={parseFloat(prod.current_amount).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.current_amount}/>
                             &nbsp;Out Of&nbsp;
