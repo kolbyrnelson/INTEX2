@@ -14,6 +14,7 @@ import Details from './details';
 import Search from './search';
 import Checkout from './checkout';
 import Receipt from './receipt';
+import Filtered from './filtered';
 import Analytics from './analytics';
 
 export default function App(props) {
@@ -28,7 +29,7 @@ return (
                 <LeftContainer />
               </bs.Col>
               <bs.Col md="8">
-                <Switch>
+                <Switch onUpdate={() => window.scrollTo(0, 0)}>
                   <Route path="/about">
                     <About />
                   </Route>
@@ -46,6 +47,9 @@ return (
                   </Route>
                   <Route path="/receipt">
                     <Receipt />
+                  </Route>
+                  <Route path="/searchResults">
+                    <Filtered />
                   </Route>
                   <Route path="/category/:cid">
                     <Category />

@@ -1,70 +1,70 @@
 
 import React from 'react';
 import AppContext from './context';
+import { useHistory } from "react-router-dom";
 import './App.scss';
 import * as bs from 'react-bootstrap';
-// import { Formik, Form, Field} from 'formik'
 
 
 export default function Search(props) {
-
-    const context = React.useContext(AppContext);
-
-    //START HERE TO GET UNIQUE LIST OF COUNTRIES
-    const countries = [...new Set(context.campaign.map(camp => camp.location_country))];
-    console.log("countries:",countries);
-
+    window.scrollTo(0, 0)
     return (
         <bs.Container fluid className="text-center" style={{width:"50%"}}> 
             <br></br>
-                <SearchForm className="m-3"/>
+            <SearchForm/>
         </bs.Container>
 )
 }
 
-class SearchForm extends React.Component {
-    handleSubmit = (event) => {
-      event.preventDefault();
-      const output = document.createElement('div');
-      const data = [...event.target.elements].reduce((data, element) => {
-        if (element.name && element.value) {
-          data[element.name] = element.value;
-        }
-        return data;
-      }, {});
-      output.textContent = JSON.stringify(data);
-      document.body.appendChild(output);
-    };
-    render() {
-      return (
-        <bs.Form action="/search" onSubmit={this.handleSubmit}>
+const SearchForm = props => {
+    const context = React.useContext(AppContext);
+    let history = useHistory();
+
+    //START HERE TO GET UNIQUE LIST OF COUNTRIES
+    const countries = [...new Set(context.campaign.map(camp => camp.location_country))];
+    countries.sort();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const goalFilter = event.target.elements.formGoal.value;
+        const countryFilter = event.target.elements.formCountry.value;
+        const stateFilter = event.target.elements.formState.value;
+
+        context.filterCampaigns(goalFilter, countryFilter, stateFilter);
+        context.resetShowCount();
+        history.push('/searchResults');
+  };
+
+
+
+
+    return (
+        <bs.Form className="m-3" onSubmit={(e) => handleSubmit(e)} >
             <bs.CardGroup>
                 <bs.Card>
                     <bs.Card.Body>
                         <bs.Card.Title>Filter Campaigns</bs.Card.Title>
                         <bs.Form.Group>
                             <bs.Form.Label>Goal</bs.Form.Label>
-                            <bs.Form.Control type="dropdown" as="select" defaultValue="">
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="formGoal">
                                 <option value=""></option>
                                 <option value="<2000">Less Than $2,000</option>
-                                <option value="BETWEEN 2000 AND 9999">$2,000 - $9,999</option>
-                                <option value="BETWEEN 10000 AND 29999">$10,000 - $29,999</option>
+                                <option value="2000-9999">$2,000 - $9,999</option>
+                                <option value="10000-29999">$10,000 - $29,999</option>
                                 <option value=">=30000">$30,000+</option>
                             </bs.Form.Control>
                         </bs.Form.Group>
                         <bs.Form.Group>
                             <bs.Form.Label>Country</bs.Form.Label>
-                            <bs.Form.Control type="dropdown" as="select" defaultValue="">
-                                <option value=""></option>
-                                <option value="<2000">Less Than $2,000</option>
-                                <option value="BETWEEN 2000 AND 9999">$2,000 - $9,999</option>
-                                <option value="BETWEEN 10000 AND 29999">$10,000 - $29,999</option>
-                                <option value=">=30000">$30,000+</option>
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="formCountry">
+                                {countries.map((country)=> {
+                                    return <option value={country} key={country}>{country}</option>
+                                    })}
                             </bs.Form.Control>
                         </bs.Form.Group>
                         <bs.Form.Group>
                             <bs.Form.Label>State</bs.Form.Label>
-                            <bs.Form.Control type="dropdown" as="select" defaultValue=""> 
+                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="formState"> 
                                 <option value=""></option>
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
@@ -119,17 +119,11 @@ class SearchForm extends React.Component {
                                 <option value="WY">Wyoming</option>
                             </bs.Form.Control>
                         </bs.Form.Group>
-                        {/* <Input title="Name:" name="name" type="text"/>
-                        <Input title="Address Line 1:" name="address1" type="text"/>
-                        <Input title="Address Line 2:" name="address2" type="text"/>
-                        <Input title="City:" name="city" type="text"/>
-                        <Input title="State:" name="state" type="dropdown" as="select" options={["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]} />
-                        <Input title="Zip:" name="zipcode" type="text"/> */}
                     </bs.Card.Body>
-                    <bs.Button>Find</bs.Button>
+                    <bs.Button type="submit">Find</bs.Button>
                 </bs.Card>
             </bs.CardGroup>
         </bs.Form>
-      );
-    }
-  }
+)}
+
+
