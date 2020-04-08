@@ -42,8 +42,8 @@ const CheckoutController = props => {
                 description: '',
                 has_beneficiary: '',
                 user_id: '0',
-                visible_in_search: 'FALSE',
-                is_launched: 'TRUE',
+                visible_in_search: '1',
+                is_launched: '0',
                 campaign_hearts: '0',
                 social_share_total: '0',
                 location_city: '',
@@ -52,12 +52,6 @@ const CheckoutController = props => {
                 averageMoneyPerDay: '0',
                 donationsPerDay: '0',
 
-                // age: '',
-                // sex: '',
-                // bmi: '',
-                // children: '',
-                // smoker: '',
-                // region: '',
             }}
             validateOnChange={false}
             validateOnBlur={false}
@@ -78,30 +72,8 @@ const CheckoutController = props => {
             }}
             onSubmit={async (values, actions) => {
                 console.log('values:', values);
-                // console.log('actions:', actions);
-                
-                // let listItems = [];
-                // for (const [pid, qty] of Object.entries(context.cart)) {
-                //     const product = context.products[pid]
-                //     if (product) {
-                //          listItems.push({
-                //               pid: pid,
-                //               qty: qty,
-                //               price: product.price,
-                //          })
-                //     }
-                // }
-                
-                // try{
                     
-                const resp = await axios.post('http://localhost:8000/api/CreateSale/', {
-                    // age: values.age,
-                    // sex: values.sex,
-                    // bmi: values.bmi,
-                    // children: values.children,
-                    // smoker: values.smoker,
-                    // region: values.region,
-
+                const resp = await axios.post('http://localhost:8000/api/PredictiveAPI/', {
                     column: values.column,
                     unnamed: values.unnamed,
                     campaign_id: values.campaign_id,

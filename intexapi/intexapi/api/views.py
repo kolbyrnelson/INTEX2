@@ -156,79 +156,12 @@ class UpdateDetails(APIView):
         up.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class CreateSale(APIView):
-    # @csrf_exempt
-    # def get(self, request, format=None):
-    #     sale = Sale.objects.all()
-
-    #     if request.query_params.get('age'):
-    #          prods = prods.filter(name_contains=request.query_params.get('age'))
-    #     if request.query_params.get('sex'):
-    #          prods = prods.filter(name_contains=request.query_params.get('sex'))
-    #     if request.query_params.get('bmi'):
-    #          prods = prods.filter(name_contains=request.query_params.get('bmi'))
-    #     if request.query_params.get('children'):
-    #          prods = prods.filter(name_contains=request.query_params.get('children'))
-    #     if request.query_params.get('smoker'):
-    #          prods = prods.filter(name_contains=request.query_params.get('smoker'))
-    #     if request.query_params.get('region'):
-    #          prods = prods.filter(name_contains=request.query_params.get('region'))
-
-    #     serializer = SaleSerializer(sale, many=True)
-    #     return Response(serializer.data)
-          
-
+class PredictiveAPI(APIView):
     @csrf_exempt
     def post(self, request, format=None):
         body = json.loads(request.body) 
-        print('---------------Body-----------------')
+        # print('---------------Body-----------------')
         print(body)
-
-
-    #     sale = Sale()
-    #     sale.age = body['age']
-    #     sale.sex = body['sex']
-    #     sale.bmi = body['bmi']
-    #     sale.children = body['children']
-    #     sale.smoker = body['smoker']
-    #     sale.region = body['region']
-
-    #     sale.save()
-    #     print(sale)
-    #     serializer = SaleSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        # this view receives parameters from the submit html template and calls the API in azure
-        # this contains API code for Python and Python3 
-
-        # If you are using Python 3+, import urllib instead of urllib2
-        #import urllib2.request
-
-
-        # assign all the parameters to variables which you put in the API like the commented code
-        # or just put them in directly like I did farther down
-        
-        # age = str(request.POST['age'])
-        # sex = str(request.POST['sex'])
-        # bmi = str(request.POST['bmi'])
-        # children = str(request.POST['children'])
-        # smoker = str(request.POST['smoker'])
-        # region = str(request.POST['region'])
-        
-        # formatting the data into a data object for the API call
-        # data =  {
-        #             "Inputs": {
-        #                 "input1":
-        #                 {
-        #                     "ColumnNames": [ "age", "sex", "bmi", "children", "smoker", "region", "charges"],
-        #                     "Values": [[ body['age'], body['sex'], body['bmi'], body['children'], body['smoker'], body['region'], "0" ],]
-        #                 }, # in the values array above it may seem weird to put a value for the response var, but azure needs something
-        #             },
-        #             "GlobalParameters": {
-        #             }
-        #         }
 
         data = {
                     "Inputs": {
@@ -289,24 +222,21 @@ class CreateSale(APIView):
 
         # the API call
         bodys = str.encode(json.dumps(data))
-        print('---------------JSON Format-----------------')
-        print(bodys)
+        # print('---------------JSON Format-----------------')
+        # print(bodys)
 
         url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
-        api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEI3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
-
-        # url = 'https://ussouthcentral.services.azureml.net/workspaces/5356028fcc494f24b2da50eee758907a/services/6aea8038c831480186111165197b1f79/execute?api-version=2.0&details=true'
-        # api_key = 'pEN3GQwATQpT30eMdeVM12LyqIxX3wS1LYyhhuAFqTbeqWi/1Kt/2zhjQDLLk1GHWvrgrt/U6LCVTfc52HSTuQ=='
+        api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEl3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
         # Replace my url and api_key with your own values
     
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
-        print('---------------Headers-----------------')
-        print(headers)
+        # print('---------------Headers-----------------')
+        # print(headers)
         # If you are using Python 3+, replace urllib2 with urllib.request
         #req = urllib2.Request(url, body, headers)
         req = urllib.request.Request(url, bodys, headers) 
-        print('---------------REQ-----------------')
-        print(req)
+        # print('---------------REQ-----------------')
+        # print(req)
         # python3 uses urllib while python uses urllib2
         #response = urllib2.request.urlopen(req)
         response = urllib.request.urlopen(req)
@@ -314,7 +244,7 @@ class CreateSale(APIView):
         # this formats the results 
         result = response.read()
         result = json.loads(result) # turns bits into json object
-        result = result["Results"]["output1"]["value"]["Values"][0][7] 
+        result = result["Results"]["output1"]["value"]["Values"][0][23] 
         # azure send the response as a weird result object. It would be wise to postman to find the 
         # path to the response var value
 
