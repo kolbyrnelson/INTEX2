@@ -17,7 +17,7 @@ export default function Details(props) {
     if(item == null){
         return <h2 className="text-center mt-5">404 Error. Page not found.</h2>
     }
-    
+
     return (
         <bs.Container fluid className="p-0">
             <div className="float-right" style={{position:"relative", margin:"2rem"}}>
@@ -67,6 +67,11 @@ export default function Details(props) {
                 {/* <bs.Button variant='warning' onClick= {e=>{
                     context.addToCart(item.id);
                 }}>Add To Cart</bs.Button> */}
+            </div>
+                
+            <div>
+
+
             </div>
         </bs.Container>
     )
