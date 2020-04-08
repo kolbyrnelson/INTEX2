@@ -33,14 +33,14 @@ export default function LeftContainer(props) {
                 All Campaigns ({context.campaign.length})
             </Link>
             {context.campaign.map((cat) => {
-                return (
-                    <Link
-                        key={cat.campaign_id}
-                        to={`/category/${cat.category_id}`}
-                        className='nav-link'
-                    >{`${cat.category_id} (${context.campaign.filter(prod => prod.category_id === cat.category_id).length})`}
-                    </Link>
-            )
+            //     return (
+            //         <Link
+            //             key={cat.campaign_id}
+            //             to={`/category/${cat.category_id}`}
+            //             className='nav-link'
+            //         >{`${cat.category_id} (${context.campaign.filter(prod => prod.category_id === cat.category_id).length})`}
+            //         </Link>
+            // )
             })}
         </bs.Nav>
 

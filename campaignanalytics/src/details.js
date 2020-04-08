@@ -15,7 +15,7 @@ export default function Details(props) {
     if(item == null){
         return <h2 className="text-center mt-5">404 Error. Page not found.</h2>
     }
-    
+
     return (
         <bs.Container fluid className="p-0">
             <div className="float-right" style={{position:"relative", margin:"2rem"}}>
@@ -42,6 +42,11 @@ export default function Details(props) {
                 City: {item.location_city}
                 <br></br>
                 Country: {item.location_country}</p>
+            </div>
+                
+            <div>
+
+
             </div>
         </bs.Container>
     )

@@ -15,6 +15,7 @@ import Search from './search';
 import Checkout from './checkout';
 import Receipt from './receipt';
 import Filtered from './filtered';
+import Analytics from './analytics';
 
 export default function App(props) {
 return (
@@ -34,6 +35,9 @@ return (
                   </Route>
                   <Route path="/search">
                     <Search />
+                  </Route>
+                  <Route path="/analytics">
+                    <Analytics />
                   </Route>
                   <Route path="/help">
                     <Help />
