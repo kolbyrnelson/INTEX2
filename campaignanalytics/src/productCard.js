@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import './index.scss';
 // import AppContext from './context';
 import * as bs from 'react-bootstrap';
 // import PRODUCTS from './products.js';
@@ -8,12 +9,17 @@ import { Link } from "react-router-dom";
 
 export default function ProductCard(props) {
     const prod = props.camp
-    const now = parseFloat(prod.current_amount)/parseFloat(prod.goal)
-    const progressInstance = <bs.ProgressBar now={now} label={`${now}%`}/>
+    const now = (parseFloat(prod.current_amount)/parseFloat(prod.goal)*100).toFixed(0)
+    const progressInstance = <bs.ProgressBar now={now} label={`${now}%`} style={{  
+        backgroundColor: "darkgray",
+        color: "#004876",
+        position: "absolute",
+        bottom:"1rem",
+        width:"86%"}}/>
 
     return (
             <bs.Col md='3' key={prod.campaign_id}>
-                <bs.Card border="dark" className="m-3" style={{height:"24em"}}>
+                <bs.Card border="dark" className="m-3" style={{height:"26em"}}>
                     <Link className='btn btn-outline-info' to={`/details/${prod.campaign_id}`} style={{
                         position:"absolute", 
                         top:0, 
@@ -22,23 +28,18 @@ export default function ProductCard(props) {
                         Details
                     </Link>
                     <bs.Card.Img src={prod.campaign_image_url} style={{height:"16em", width: "100%"}}></bs.Card.Img>
-                    <bs.Card.Footer style={{height:"8em", width: "100%"}}>
-                        <bs.Card.Title style={
-                            {fontSize:"1vw", 
+                    <bs.Card.Footer style={{height:"10em", width: "100%"}}>
+                        <bs.Card.Title className="mb-1" style={
+                            {fontSize:".7vw", 
                             textOverflow: "ellipsis",
                             overflow: "hidden",
                             width:"100%",
                             display: "-webkit-box",
                             WebkitLineClamp: "2",
                             WebkitBoxOrient: "vertical"}}>
-                            {prod.title}
+                            <Link to={`/details/${prod.campaign_id}`} style={{color:"black"}}>{prod.title}</Link>
                         </bs.Card.Title>
-                        <bs.Card.Text className="mb-0">
-                            <CurrencyFormat value={parseFloat(prod.current_amount).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.current_amount}/>
-                            &nbsp;Out Of&nbsp;
-                            <CurrencyFormat value={parseFloat(prod.goal).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.goal}/>
-                        </bs.Card.Text>
-                        <bs.Card.Text style={
+                        <bs.Card.Text className="mb-0" style={
                             {textOverflow: "ellipsis",
                             overflow: "hidden",
                             width:"100%",
@@ -47,6 +48,11 @@ export default function ProductCard(props) {
                             WebkitBoxOrient: "vertical"}}>
                             City: {prod.location_city}
                         </bs.Card.Text >
+                        <bs.Card.Text className="mb-1">
+                            <CurrencyFormat value={parseFloat(prod.current_amount).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.current_amount}/>
+                            &nbsp;Out Of&nbsp;
+                            <CurrencyFormat value={parseFloat(prod.goal).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={prod.goal}/>
+                        </bs.Card.Text>
                         {progressInstance}
                     </bs.Card.Footer>
                 </bs.Card>
