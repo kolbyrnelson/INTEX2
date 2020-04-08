@@ -25,6 +25,9 @@ export default function HeaderContainer(props){
                     <Link to="/search" className="fas fa-search nav-link">  Search</Link>
                 </bs.Nav>
                 <bs.Nav>
+                    <Link to="/analytics" className="fas fa-search nav-link">  Analytics</Link>
+                </bs.Nav>
+                <bs.Nav>
                 {   <bs.NavDropdown title="Welcome, Kolby" id="basic-nav-dropdown" alignright="true">
                         <bs.NavDropdown.Item href="#action/3.3">Account</bs.NavDropdown.Item>
                         <bs.NavDropdown.Divider />
