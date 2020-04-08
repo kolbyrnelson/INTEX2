@@ -29,24 +29,51 @@ const CheckoutController = props => {
     return (
         <Formik
             initialValues={{
-                age: '',
-                sex: '',
-                bmi: '',
-                children: '',
-                smoker: '',
-                region: '',
+                column: '0' ,
+                unnamed: '0',
+                campaign_id: '0',
+                auto_fb_post_mode: '',
+                currencycode: '',
+                current_amount: '0',
+                goal: '',
+                donators: '0',
+                days_active: '0',
+                title: '',
+                description: '',
+                has_beneficiary: '',
+                user_id: '0',
+                visible_in_search: 'FALSE',
+                is_launched: 'TRUE',
+                campaign_hearts: '0',
+                social_share_total: '0',
+                location_city: '',
+                location_country: '',
+                location_zip: '',
+                averageMoneyPerDay: '0',
+                donationsPerDay: '0',
+
+                // age: '',
+                // sex: '',
+                // bmi: '',
+                // children: '',
+                // smoker: '',
+                // region: '',
             }}
             validateOnChange={false}
             validateOnBlur={false}
             validate={values => {
                 const errors = {};
                 // console.log('validating', values);
-                if(values.age === ""){errors.age = 'Please enter your name'};
-                if(values.sex === ""){errors.sex = 'Please enter your address'};
-                if(values.bmi === ""){errors.bmi = 'You need a value for the city'};
-                if(values.children === ""){errors.children = 'You need a value for the state'};
-                if(values.smoker === ""){errors.smoker = 'You need a value for the zipcode'};
-                if(values.region === ""){errors.region = 'You need a value for the zipcode'};
+                if(values.auto_fb_post_mode === ""){errors.auto_fb_post_mode = 'Please a value to auto FB post'};
+                if(values.currencycode === ""){errors.currencycode = 'Please enter a value for the currency'};
+                if(values.goal === ""){errors.goal = 'You need a value for the goal'};
+                if(values.title === ""){errors.title = 'You need a value for the title'};
+                if(values.description === ""){errors.description = 'You need a value for the description'};
+                if(values.location_city === ""){errors.location_city = 'You need a value for the city'};
+                if(values.location_country === ""){errors.location_country = 'You need a value for the country'};
+                if(values.location_zip === ""){errors.location_zip = 'You need a value for the zipcode'};
+
+
                 return errors;
             }}
             onSubmit={async (values, actions) => {
@@ -68,12 +95,34 @@ const CheckoutController = props => {
                 // try{
                     
                 const resp = await axios.post('http://localhost:8000/api/CreateSale/', {
-                    age: values.age,
-                    sex: values.sex,
-                    bmi: values.bmi,
-                    children: values.children,
-                    smoker: values.smoker,
-                    region: values.region,
+                    // age: values.age,
+                    // sex: values.sex,
+                    // bmi: values.bmi,
+                    // children: values.children,
+                    // smoker: values.smoker,
+                    // region: values.region,
+
+                    column: values.column,
+                    unnamed: values.unnamed,
+                    campaign_id: values.campaign_id,
+                    auto_fb_post_mode: values.auto_fb_post_mode,
+                    currencycode: values.currencycode,
+                    current_amount: values.current_amount,
+                    goal: values.goal,
+                    donators: values.donators,
+                    days_active: values.days_active,
+                    title: values.title,
+                    description: values.description,
+                    has_beneficiary: values.has_beneficiary,
+                    user_id: values.user_id,
+                    visible_in_search: values.visible_in_search,
+                    is_launched: values.is_launched,
+                    campaign_hearts: values.campaign_hearts,
+                    social_share_total: values.social_share_total,
+                    location_city: values.location_city,
+                    location_country: values.location_country,
+                    location_zip: values.location_zip,
+                    averageMoneyPerDay: values.averageMoneyPerDay,
                 })
 
                 console.log(resp)
@@ -130,34 +179,55 @@ const PaymentForm = props => (
         <bs.CardGroup>
             <bs.Card>
                 <bs.Card.Body>
-                    <bs.Card.Title>Shipping</bs.Card.Title>
-                    <Input title="Age:" name="age" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Sex:" name="sex" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="BMI:" name="bmi" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Children:" name="children" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Smoker:" name="smoker" type="text"disabled={props.form.isSubmitting} />
-                    <Input title="Region:" name="region" type="text" disabled={props.form.isSubmitting}/>
+                    <bs.Card.Title style={{ color: 'black', fontSize: '30px', fontWeight:'bold', textAlign: 'center'}}>Go-Fund-Me Data</bs.Card.Title>
 
+                    <Input title="Title:" name="title" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Description:" name="description" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Goal:" name="goal" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="City:" name="location_city" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Country:" name="location_country" type="text" disabled={props.form.isSubmitting} />
+                    <Input title="Zipcode:" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Currency Type:" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="Beneficiary:" name="has_beneficiary" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="FaceBook:" name="auto_fb_post_mode" type="text" disabled={props.form.isSubmitting}/>
+                    {/* <bs.Form.Group  disabled={props.form.isSubmitting}>
+                        <bs.Form.Label>Beneficiary?</bs.Form.Label>
+                        <bs.Form.Control type="dropdown" as="select" defaultValue="" name="has_beneficiary">
+                            <option value=""></option>
+                            <option value="TRUE">Yes</option>
+                            <option value="FALSE">No</option>
+                        </bs.Form.Control>
+                    </bs.Form.Group> 
+                    <bs.Form.Group  disabled={props.form.isSubmitting}>
+                        <bs.Form.Label>Post to Facebook?</bs.Form.Label>
+                        <bs.Form.Control type="dropdown" as="select" defaultValue="" name="auto_fb_post_mode">
+                            <option value=""></option>
+                            <option value="TRUE">Yes</option>
+                            <option value="FALSE">No</option>
+                        </bs.Form.Control>
+                    </bs.Form.Group>                  */}
 
                 </bs.Card.Body>
             </bs.Card>
             <bs.Card>
                 <bs.Card.Body>
-                    <bs.Card.Title>Payment</bs.Card.Title>
-                    <label>Card details</label>
+                    <bs.Card.Title style={{ color: 'black', fontSize: '30px', fontWeight:'bold', textAlign: 'center'}}>Calculate</bs.Card.Title>
+                    {/* <label>Card details</label> */}
                     {/* <CardElement options={CARD_ELEMENT_OPTIONS}/> */}
-                    
-                    <bs.Button className='mt-5 align-center text-center' variant="success" type="submit" disabled={props.form.isSubmitting}>
-                        {props.form.isSubmitting &&
-                        <bs.Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                        />}
-                        Confirm Checkout
-                    </bs.Button>
+
+                    <div style={{ padding: '20px', textAlign: 'center' }}>
+                        <bs.Button size="lg" className='mt-5 align-center text-center' variant="success" type="submit" disabled={props.form.isSubmitting}>
+                            {props.form.isSubmitting &&
+                            <bs.Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />}
+                            Submit
+                        </bs.Button>
+                    </div>
                 </bs.Card.Body>
 
             </bs.Card>

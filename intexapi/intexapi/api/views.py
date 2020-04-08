@@ -181,6 +181,7 @@ class CreateSale(APIView):
     @csrf_exempt
     def post(self, request, format=None):
         body = json.loads(request.body) 
+        print('---------------Body-----------------')
         print(body)
 
 
@@ -256,76 +257,56 @@ class CreateSale(APIView):
                             "averageMoneyPerDay",
                             "donationsPerDay"
                         ],
-                        "Values": [
-                            [
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "value",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "value",
-                            "value",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "value",
-                            "value",
-                            "value",
-                            "0",
+                        "Values": [[
+                            body['column'],
+                            body['unnamed'],
+                            body['campaign_id'],
+                            body['auto_fb_post_mode'],
+                            body['currencycode'],
+                            body['current_amount'],
+                            body['goal'],
+                            body['donators'],
+                            body['days_active'],
+                            body['title'],
+                            body['description'],
+                            body['has_beneficiary'],
+                            body['user_id'],
+                            body['visible_in_search'],
+                            body['is_launched'],
+                            body['campaign_hearts'],
+                            body['social_share_total'],
+                            body['location_city'],
+                            body['location_country'],
+                            body['location_zip'],
+                            body['averageMoneyPerDay'],
                             "0"
-                            ],
-                            [
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "value",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "value",
-                            "value",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "0",
-                            "value",
-                            "value",
-                            "value",
-                            "0",
-                            "0"
-                            ]
-                        ]
-                        }
+
+                            ],]
+                        },
                     },
                     "GlobalParameters": {}
             }
 
         # the API call
         bodys = str.encode(json.dumps(data))
+        print('---------------JSON Format-----------------')
+        print(bodys)
+
         url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
         api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEI3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
 
         # url = 'https://ussouthcentral.services.azureml.net/workspaces/5356028fcc494f24b2da50eee758907a/services/6aea8038c831480186111165197b1f79/execute?api-version=2.0&details=true'
         # api_key = 'pEN3GQwATQpT30eMdeVM12LyqIxX3wS1LYyhhuAFqTbeqWi/1Kt/2zhjQDLLk1GHWvrgrt/U6LCVTfc52HSTuQ=='
         # Replace my url and api_key with your own values
-       
+    
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
-
+        print('---------------Headers-----------------')
+        print(headers)
         # If you are using Python 3+, replace urllib2 with urllib.request
         #req = urllib2.Request(url, body, headers)
         req = urllib.request.Request(url, bodys, headers) 
-
+        print('---------------REQ-----------------')
+        print(req)
         # python3 uses urllib while python uses urllib2
         #response = urllib2.request.urlopen(req)
         response = urllib.request.urlopen(req)
