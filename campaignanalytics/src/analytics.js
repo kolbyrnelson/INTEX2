@@ -1,7 +1,10 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 import { Formik, Form, Field} from 'formik'
+import AppContext from './context';
+
 
 function Checkout(props) {
 
@@ -106,14 +109,14 @@ const CheckoutController = props => {
         >{form => (
             <div> 
                 <div style={{ fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
-                <AnaylticsForm form={form} />
+                <PaymentForm form={form} />
             </div>
         )}</Formik>
     )
 }
 
 
-const AnaylticsForm = props => (
+const PaymentForm = props => (
     <Form>
         <bs.CardGroup>
             <bs.Card>

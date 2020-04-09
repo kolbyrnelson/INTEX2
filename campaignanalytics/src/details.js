@@ -4,7 +4,6 @@ import AppContext from './context';
 import * as bs from 'react-bootstrap';
 import CurrencyFormat from 'react-currency-format';
 import { useRouteMatch } from "react-router-dom";
-import axios from 'axios';
 
 export default function Details(props) {
     const context = React.useContext(AppContext);
@@ -13,14 +12,10 @@ export default function Details(props) {
     // const [ img, setImg ] = React.useState([`${process.env.PUBLIC_URL}/Images/` + (!item ? "" : item.filename) + "-1.png"])
     const [ img ] = React.useState([(!item ? "" : item.campaign_image_url)])
 
-    const [showRespOutput, setRespOutput] = React.useState("")
-    // console.log("Itmes")
-    // console.log(item)
     if(item == null){
         return <h2 className="text-center mt-5">404 Error. Page not found.</h2>
     }
     return (
-
         <bs.Container fluid className="p-0">
             <div className="float-right" style={{position:"relative", margin:"2rem"}}>
                 <bs.Image src={img} style={{height:"400px", width:"400px"}} />
@@ -46,8 +41,6 @@ export default function Details(props) {
                 City: {item.location_city}
                 <br></br>
                 Country: {item.location_country}</p>
-                <br></br>
-                <p style={{ fontWeight: 'bold', fontSize: '20px', color: 'red', textAlign: "center", padding: '15px' }}>Reliabilty Score: {showRespOutput}%</p>
             </div>
                 
             <div>
