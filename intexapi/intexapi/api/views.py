@@ -326,8 +326,6 @@ class QualityAPI(APIView):
         print('---------------JSON Format-----------------')
         print(bodys)
 
-        
-
         url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/9559d276022b450d868020d6dfdcbaaf/execute?api-version=2.0&details=true'
         api_key = 'Fmm9k9l01PnDsKI9c7rwaNfkEJkSlD3lj7BUaMQPz1XW8gS2jt917JWcPRDCf64uJK7WnOC23AJP7e/gQzV8vQ=='
         # Replace my url and api_key with your own values
@@ -335,6 +333,7 @@ class QualityAPI(APIView):
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
         print('---------------Headers-----------------')
         print(headers)
+        
         # If you are using Python 3+, replace urllib2 with urllib.request
         #req = urllib2.Request(url, body, headers)
         req = urllib.request.Request(url, bodys, headers) 
