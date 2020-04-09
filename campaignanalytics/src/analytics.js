@@ -4,14 +4,10 @@ import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field} from 'formik'
 import AppContext from './context';
-// import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-// import { loadStripe } from '@stripe/stripe-js';
 
-
-// const stripePromise = loadStripe('pk_test_6YhTviRy8uKYF8GicIMBBLam00K2xHrJe9')
 
 function Checkout(props) {
-    // we'll add Stripe's Elements component here later
+
     return (
         <bs.Container fluid className="text-center my-3" style={{width:"50%"}}>
             <CheckoutController />
@@ -22,6 +18,8 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext);
+    const [showPrediction, setPrediction] = React.useState("")
+
     return (
         <Formik
             initialValues={{
@@ -38,8 +36,8 @@ const CheckoutController = props => {
                 description: '',
                 has_beneficiary: '',
                 user_id: '0',
-                visible_in_search: 'FALSE',
-                is_launched: 'TRUE',
+                visible_in_search: '0',
+                is_launched: '0',
                 campaign_hearts: '0',
                 social_share_total: '0',
                 location_city: '',
@@ -66,9 +64,9 @@ const CheckoutController = props => {
                 return errors;
             }}
             onSubmit={async (values, actions) => {
-                console.log('values:', values);
-
-                const resp = await axios.post('http://localhost:8000/api/CreateSale/', {
+                // console.log('values:', values);
+                    
+                const resp = await axios.post('http://localhost:8000/api/PredictiveAPI/', {
                     column: values.column,
                     unnamed: values.unnamed,
                     campaign_id: values.campaign_id,
@@ -93,7 +91,9 @@ const CheckoutController = props => {
                 })
 
                 console.log(resp)
-
+                const respInput = parseInt(resp.data['result']).toFixed(0)
+                setPrediction(respInput)
+                
                 await new Promise(resolve => {
                     setTimeout(() => {  // wait 2 seconds, then set the form as "not submitting"
                         resolve()
@@ -102,7 +102,8 @@ const CheckoutController = props => {
             }}
         >{form => (
             <div> 
-                <PaymentForm form={form} total={context.totalPrice} />
+                <div style={{ fontWeight: 'bold', fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
+                <PaymentForm form={form} />
             </div>
         )}</Formik>
     )
@@ -123,7 +124,9 @@ const PaymentForm = props => (
                     <Input title="Country" name="location_country" type="text" disabled={props.form.isSubmitting} />
                     <Input title="Zipcode" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
                     <Input title="Currency Type" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
-                    <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
+                    <Input title="Ben" name="has_beneficiary" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="FB" name="auto_fb_post_mode" type="text" disabled={props.form.isSubmitting}/>
+                    {/* <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
                         <bs.Form.Label column sm={4} className="text-right">Has Beneficiary?</bs.Form.Label>
                         <bs.Col sm={8}>
                             <bs.Form.Control type="dropdown" as="select" defaultValue="" name="has_beneficiary">
@@ -142,7 +145,7 @@ const PaymentForm = props => (
                                 <option value={0}>No</option>
                             </bs.Form.Control>
                         </bs.Col>
-                    </bs.Form.Group>                 
+                    </bs.Form.Group>                  */}
                 </bs.Card.Body>
                 <bs.Button size="lg" className='mt-1 align-center text-center' type="submit" disabled={props.form.isSubmitting}>
                     {props.form.isSubmitting &&
