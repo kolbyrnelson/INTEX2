@@ -1,9 +1,9 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { Formik, Form, Field} from 'formik'
-import AppContext from './context';
+// import AppContext from './context';
 
 
 function Checkout(props) {
@@ -17,7 +17,7 @@ function Checkout(props) {
 export default Checkout
 
 const CheckoutController = props => {
-    const context = React.useContext(AppContext);
+    // const context = React.useContext(AppContext);
     const [showPrediction, setPrediction] = React.useState("")
 
     return (
@@ -103,14 +103,14 @@ const CheckoutController = props => {
         >{form => (
             <div> 
                 <div style={{ fontWeight: 'bold', fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
-                <PaymentForm form={form} />
+                <AnaylticsForm form={form} />
             </div>
         )}</Formik>
     )
 }
 
 
-const PaymentForm = props => (
+const AnaylticsForm = props => (
     <Form>
         <bs.CardGroup>
             <bs.Card>
@@ -124,9 +124,9 @@ const PaymentForm = props => (
                     <Input title="Country" name="location_country" type="text" disabled={props.form.isSubmitting} />
                     <Input title="Zipcode" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
                     <Input title="Currency Type" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Ben" name="has_beneficiary" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="FB" name="auto_fb_post_mode" type="text" disabled={props.form.isSubmitting}/>
-                    {/* <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
+                    {/* <Input title="Ben" name="has_beneficiary" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="FB" name="auto_fb_post_mode" type="text" disabled={props.form.isSubmitting}/> */}
+                    <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
                         <bs.Form.Label column sm={4} className="text-right">Has Beneficiary?</bs.Form.Label>
                         <bs.Col sm={8}>
                             <bs.Form.Control type="dropdown" as="select" defaultValue="" name="has_beneficiary">
@@ -145,7 +145,7 @@ const PaymentForm = props => (
                                 <option value={0}>No</option>
                             </bs.Form.Control>
                         </bs.Col>
-                    </bs.Form.Group>                  */}
+                    </bs.Form.Group>                 
                 </bs.Card.Body>
                 <bs.Button size="lg" className='mt-1 align-center text-center' type="submit" disabled={props.form.isSubmitting}>
                     {props.form.isSubmitting &&
