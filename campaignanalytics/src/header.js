@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import * as bs from 'react-bootstrap';
 
 export default function HeaderContainer(props){
-
     return (
         <bs.Navbar bg="light" expand="lg" style={{width:"100%"}} fixed='top'>
             <Link to="/">

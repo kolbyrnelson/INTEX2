@@ -105,15 +105,15 @@ const CheckoutController = props => {
             }}
         >{form => (
             <div> 
-                <div style={{fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
-                <PaymentForm form={form} />
+                <div style={{ fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
+                <AnaylticsForm form={form} />
             </div>
         )}</Formik>
     )
 }
 
 
-const PaymentForm = props => (
+const AnaylticsForm = props => (
     <Form>
         <bs.CardGroup>
             <bs.Card>
