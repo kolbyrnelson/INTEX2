@@ -4,18 +4,122 @@ import AppContext from './context';
 import * as bs from 'react-bootstrap';
 import CurrencyFormat from 'react-currency-format';
 import { useRouteMatch } from "react-router-dom";
+import axios from 'axios';
 
 export default function Details(props) {
     const context = React.useContext(AppContext);
     const match = useRouteMatch("/details/:id");
     const item = context.campaign.find( ({ campaign_id }) => campaign_id === (match.params.id) )
-    // const [ img, setImg ] = React.useState([`${process.env.PUBLIC_URL}/Images/` + (!item ? "" : item.filename) + "-1.png"])
     const [ img ] = React.useState([(!item ? "" : item.campaign_image_url)])
+
+    const [showRespOutput, setRespOutput] = React.useState("")
 
     if(item == null){
         return <h2 className="text-center mt-5">404 Error. Page not found.</h2>
     }
+
+    item.column = 0
+    item.unnamed = 0
+    if (item.column === "") {
+        item.column = "0"   
+    }
+    if (item.unnamed === "") {
+        item.unnamed = "0"   
+    }
+    if (item.campaign_id === "") {
+        item.campaign_id = "0"   
+    }
+    if (item.auto_fb_post_mode === "") {
+        item.auto_fb_post_mode = "0"  
+    }
+    if (item.currencycode === "") {
+        item.currencycode = "USD"   
+    }
+    if (item.current_amount === "") {
+        item.current_amount = "0"   
+    }
+    if (item.goal === "") {
+        item.goal = "0"   
+    }
+    if (item.donators === "") {
+        item.donators = "0"   
+    }
+    if (item.days_active === "") {
+        item.days_active = "0"   
+    }
+    if (item.title === "") {
+        item.title = "Hi"   
+    }
+    if (item.description === "") {
+        item.description = "Hi"   
+    }
+    if (item.has_beneficiary === "") {
+        item.has_beneficiary = "0"   
+    }
+    if (item.user_id === "") {
+        item.user_id = "0"   
+    }
+    if (item.visible_in_search === "") {
+        item.visible_in_search = "0"   
+    }
+    if (item.is_launched === "") {
+        item.is_launched = "0"   
+    }
+    if (item.campaign_hearts === "") {
+        item.campaign_hearts = "0"   
+    }
+    if (item.social_share_total === "") {
+        item.social_share_total = "0"   
+    }
+    if (item.location_city === "") {
+        item.location_city = "Hi"   
+    }
+    if (item.location_country === "") {
+        item.location_country = "US"   
+    }
+    if (item.location_zip === "") {
+        item.location_zip = "12345"   
+    }
+
+    //Write an if statement to not include if the variable is blank
+    //Write validations for the inputes (ex. zip) that may have characters to be set to 0
+    makeHeadRequest(item)
+    // This is where we send the details of the campaign to the Azure api
+    async function makeHeadRequest(item) {
+        const resp = await axios.post('http://localhost:8000/api/QualityAPI/', {
+            column: item.column,
+            unnamed: item.unnamed,
+            campaign_id: item.campaign_id,
+            auto_fb_post_mode: item.auto_fb_post_mode,
+            currencycode: item.currencycode,
+            current_amount: item.current_amount,
+            goal: item.goal,
+            donators: item.donators,
+            days_active: item.days_active,
+            title: item.title,
+            description: item.description,
+            has_beneficiary: item.has_beneficiary,
+            user_id: item.user_id,
+            visible_in_search: item.visible_in_search,
+            is_launched: item.is_launched,
+            campaign_hearts: item.campaign_hearts,
+            social_share_total: item.social_share_total,
+            location_city: item.location_city,
+            location_country: item.location_country,
+            location_zip: item.location_zip,
+            averageMoneyPerDay: (item.current_amount / item.days_active),
+            donationsPerDay: (item.donators / item.days_active),
+            PercentPerDay: ((item.current_amount / item.goal) / item.days_active),
+            SharesPerDay: (item.social_share_total / item.days_active),
+            campaignheartsPerDay: (item.campaign_hearts / item.days_active),
+        })
+
+        const respOutput = (parseFloat(resp.data['result']).toFixed(3) * 100)
+        setRespOutput(respOutput)
+    }
+
     return (
+
         <bs.Container fluid className="p-0">
             <div className="float-right" style={{position:"relative", margin:"2rem"}}>
                 <bs.Image src={img} style={{height:"400px", width:"400px"}} />
@@ -29,10 +133,8 @@ export default function Details(props) {
                     &nbsp;Out Of&nbsp;
                     <CurrencyFormat value={parseFloat(item.goal).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={item.goal}/>
                 </i></p>
-
                 <h5 className="mt-2">Campaign Description</h5>
                 <p>{item.description}</p>
-
                 <h5>Additional Campaign Info</h5>
                 <p>Days Active: {(item.days_active)}
                 <br></br>
@@ -41,11 +143,11 @@ export default function Details(props) {
                 City: {item.location_city}
                 <br></br>
                 Country: {item.location_country}</p>
+                <br></br>
+                <p style={{ fontWeight: 'bold', fontSize: '20px', color: 'red', textAlign: "center", padding: '15px' }}>Reliabilty Score: {showRespOutput}%</p>
             </div>
-                
+
             <div>
-
-
             </div>
         </bs.Container>
     )
