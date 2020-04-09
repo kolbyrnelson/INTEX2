@@ -12,8 +12,8 @@ export default function Home(props) {
 
     return (
         <bs.Container fluid className="text-center">
-            <h3 className="mt-2" style={{color:"#00b964"}}>Welcome to Arctic Retailer</h3>
-            <h6 style={{color:"#00b964"}}><i>"Our Products Will Put You on Top of the World"</i></h6>
+            <h3 className="mt-2" style={{color:"#00b964"}}>Welcome to Covid-19 Fundraiser Analytics</h3>
+            <h6 style={{color:"#00b964"}}><i>"Measuring and Predicting Success For Your GoFundMe Campaign"</i></h6>
             <bs.Row>
                 {/* {numOfCamp.map((prod) => { */}
                 {context.campaign.slice(0, numOfCamp).map((prod) => {
@@ -26,7 +26,7 @@ export default function Home(props) {
                     context.loadMoreCamp(true);
                 }}>Show More Campaigns</bs.Button>
         <br></br>
-        <i class="fas fa-chevron-down fa-lg"></i>
+        <i className="fas fa-chevron-down fa-lg"></i>
         </bs.Container>
 )
 }

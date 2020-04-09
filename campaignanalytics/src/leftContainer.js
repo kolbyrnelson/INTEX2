@@ -2,29 +2,9 @@ import React from 'react';
 import './App.scss';
 import * as bs from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-// import PRODUCTS from './products.js';
 import AppContext from './context';
 
 export default function LeftContainer(props) {
-    // let categories = {}
-    // for(const p of Object.values(PRODUCTS)){
-    //     const current = categories[p.category] || 0
-    //     categories[p.category] = current + 1
-    // }
-
-    // const sortable = [];
-    // for (const cat in categories) {
-    //     sortable.push([cat, categories[cat]]);
-    // }
-    // sortable.sort((a, b) => (a > b) ? 1 : -1);
-
-    // const objSorted = {}
-    // sortable.forEach(function(item){
-    //     objSorted[item[0]]=item[1]
-    // })
-    
-    // categories = objSorted
-
     const context = React.useContext(AppContext);
         
     const group1 = context.campaign.filter(camp => parseInt(camp.goal) < 2000);

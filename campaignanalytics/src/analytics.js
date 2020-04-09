@@ -1,10 +1,7 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
 import { Formik, Form, Field} from 'formik'
-import AppContext from './context';
-
 
 function Checkout(props) {
 
@@ -17,7 +14,6 @@ function Checkout(props) {
 export default Checkout
 
 const CheckoutController = props => {
-    const context = React.useContext(AppContext);
     const [showPrediction, setPrediction] = React.useState("")
 
     return (
@@ -26,7 +22,7 @@ const CheckoutController = props => {
                 column: '0' ,
                 unnamed: '0',
                 campaign_id: '0',
-                auto_fb_post_mode: '',
+                auto_fb_post_mode: '1',
                 currencycode: '',
                 current_amount: '0',
                 goal: '',
@@ -34,7 +30,7 @@ const CheckoutController = props => {
                 days_active: '0',
                 title: '',
                 description: '',
-                has_beneficiary: '',
+                has_beneficiary: '1',
                 user_id: '0',
                 visible_in_search: '0',
                 is_launched: '0',
@@ -51,7 +47,6 @@ const CheckoutController = props => {
             validate={values => {
                 const errors = {};
                 // console.log('validating', values);
-                if(values.auto_fb_post_mode === ""){errors.auto_fb_post_mode = 'Please a value to auto FB post'};
                 if(values.currencycode === ""){errors.currencycode = 'Please enter a value for the currency'};
                 if(values.goal === ""){errors.goal = 'You need a value for the goal'};
                 if(values.title === ""){errors.title = 'You need a value for the title'};
@@ -64,13 +59,20 @@ const CheckoutController = props => {
                 return errors;
             }}
             onSubmit={async (values, actions) => {
-                // console.log('values:', values);
-                    
+                console.log('values:', values);
+                let city = "";
+                if(values.location_state !== undefined){
+                    city = values.location_city.concat(", ", values.location_state);
+                }
+                else{
+                    city = values.location_city;
+                }
+                // console.log("city: "+city);
                 const resp = await axios.post('http://localhost:8000/api/PredictiveAPI/', {
                     column: values.column,
                     unnamed: values.unnamed,
                     campaign_id: values.campaign_id,
-                    auto_fb_post_mode: values.auto_fb_post_mode,
+                    auto_fb_post_mode: parseInt(values.auto_fb_post_mode),
                     currencycode: values.currencycode,
                     current_amount: values.current_amount,
                     goal: values.goal,
@@ -78,21 +80,22 @@ const CheckoutController = props => {
                     days_active: values.days_active,
                     title: values.title,
                     description: values.description,
-                    has_beneficiary: values.has_beneficiary,
+                    has_beneficiary: parseInt(values.has_beneficiary),
                     user_id: values.user_id,
                     visible_in_search: values.visible_in_search,
                     is_launched: values.is_launched,
                     campaign_hearts: values.campaign_hearts,
                     social_share_total: values.social_share_total,
-                    location_city: values.location_city,
+                    location_city: city,
                     location_country: values.location_country,
                     location_zip: values.location_zip,
                     averageMoneyPerDay: values.averageMoneyPerDay,
                 })
 
-                console.log(resp)
-                const respInput = parseInt(resp.data['result']).toFixed(0)
-                setPrediction(respInput)
+                // console.log(resp);
+                const respInput = parseInt(resp.data['result']).toFixed(0);
+                setPrediction(`You can expect to have ${respInput} donors!`);
+                window.scrollTo(0, 0);
                 
                 await new Promise(resolve => {
                     setTimeout(() => {  // wait 2 seconds, then set the form as "not submitting"
@@ -102,7 +105,7 @@ const CheckoutController = props => {
             }}
         >{form => (
             <div> 
-                <div style={{ fontWeight: 'bold', fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
+                <div style={{fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
                 <PaymentForm form={form} />
             </div>
         )}</Formik>
@@ -121,31 +124,12 @@ const PaymentForm = props => (
                     <Input title="Description" name="description" type="text" disabled={props.form.isSubmitting}/>
                     <Input title="Goal" name="goal" type="text" disabled={props.form.isSubmitting}/>
                     <Input title="City" name="location_city" type="text" disabled={props.form.isSubmitting}/>
+                    <Input title="State" name="location_state" type="dropdown" as="select" disabled={props.form.isSubmitting} states="yes" options={["","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]} />
                     <Input title="Country" name="location_country" type="text" disabled={props.form.isSubmitting} />
                     <Input title="Zipcode" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
                     <Input title="Currency Type" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Ben" name="has_beneficiary" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="FB" name="auto_fb_post_mode" type="text" disabled={props.form.isSubmitting}/>
-                    {/* <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
-                        <bs.Form.Label column sm={4} className="text-right">Has Beneficiary?</bs.Form.Label>
-                        <bs.Col sm={8}>
-                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="has_beneficiary">
-                                <option value=""></option>
-                                <option value={1}>Yes</option>
-                                <option value={0}>No</option>
-                            </bs.Form.Control>
-                        </bs.Col>
-                    </bs.Form.Group> 
-                    <bs.Form.Group  as={bs.Row} disabled={props.form.isSubmitting}>
-                        <bs.Form.Label column sm={4} className="text-right">Auto Post to Facebook?</bs.Form.Label>
-                        <bs.Col sm={8}>
-                            <bs.Form.Control type="dropdown" as="select" defaultValue="" name="auto_fb_post_mode">
-                                <option value=""></option>
-                                <option value={1}>Yes</option>
-                                <option value={0}>No</option>
-                            </bs.Form.Control>
-                        </bs.Col>
-                    </bs.Form.Group>                  */}
+                    <Input title="Has Beneficiary?" name="has_beneficiary" type="dropdown" as="select" options={[["Yes", 1], ["No", 0]]} disabled={props.form.isSubmitting}/>
+                    <Input title="Auto Post to Facebook?" name="auto_fb_post_mode" type="dropdown" as="select" options={[["Yes", 1], ["No", 0]]} disabled={props.form.isSubmitting}/>
                 </bs.Card.Body>
                 <bs.Button size="lg" className='mt-1 align-center text-center' type="submit" disabled={props.form.isSubmitting}>
                     {props.form.isSubmitting &&
@@ -173,7 +157,16 @@ const PaymentForm = props => (
  * This component is finished and doesn't need additional work.
  */
 
+// {countries.map((country)=> {
+//     return <option value={country} key={country}>{country}</option>
+//     })}
+
 const optionList = (props) => (
+    props.options.map((opt) => {
+        return(<option key={opt[0]+'id'} value={opt[1]}>{opt[0]}</option>)
+}))
+
+const statesList = (props) => (
     props.options.map((opt) => {
         return(<option key={opt+'id'} value={opt}>{opt}</option>)
 }))
@@ -193,9 +186,7 @@ const Input = (props) => (
                         disabled={rProps.form.isSubmitting}          
                         {...rProps.field}
                     >
-                    {props.options &&
-                        optionList(props)
-                    }
+                    {props.states ? statesList(props) : props.options && optionList(props)}
                     </bs.Form.Control>
                 </bs.Col>
                 {rProps.meta.touched && rProps.meta.error &&

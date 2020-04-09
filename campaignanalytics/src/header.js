@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.scss';
-import AppContext from './context';
 import { Link } from 'react-router-dom';
 import * as bs from 'react-bootstrap';
 
 export default function HeaderContainer(props){
-    const context = React.useContext(AppContext);
+
     return (
         <bs.Navbar bg="light" expand="lg" style={{width:"100%"}} fixed='top'>
             <Link to="/">
