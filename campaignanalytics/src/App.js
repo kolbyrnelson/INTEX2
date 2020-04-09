@@ -9,10 +9,8 @@ import RightContainer from './rightContainer';
 import Home from './home';
 import Help from './help';
 import About from './about';
-import Category from './category';
 import Details from './details';
 import Search from './search';
-import Checkout from './checkout';
 import Receipt from './receipt';
 import Filtered from './filtered';
 import Analytics from './analytics';
@@ -25,7 +23,7 @@ return (
                 <HeaderContainer />
             </bs.Row>
             <bs.Row noGutters className="flex-grow-1">
-              <bs.Col md="2" className="px-3 py-4 shadow" style={{backgroundColor:"paleturquoise"}}>
+              <bs.Col md="2" className="px-3 py-4 shadow" style={{backgroundColor:"#f0ead6"}}>
                 <LeftContainer />
               </bs.Col>
               <bs.Col md="8">
@@ -42,17 +40,11 @@ return (
                   <Route path="/help">
                     <Help />
                   </Route>
-                  <Route path="/checkout">
-                    <Checkout />
-                  </Route>
                   <Route path="/receipt">
                     <Receipt />
                   </Route>
                   <Route path="/searchResults">
                     <Filtered />
-                  </Route>
-                  <Route path="/category/:cid">
-                    <Category />
                   </Route>
                   <Route path="/details/:id">
                     <Details />

@@ -19,9 +19,11 @@ export default function Filtered(props) {
                 )
                 })}
             </bs.Row>
-         <bs.Button variant='warning' onClick= {e=>{
+         <bs.Button className="m-2" style={{backgroundColor:"#00b964", borderColor: "white"}} onClick= {e=>{
                     context.loadMoreCamp(true);
                 }}>Show More Campaigns</bs.Button>
+                <br></br>
+        <i class="fas fa-chevron-down"></i>
         </bs.Container>
 )
 }
