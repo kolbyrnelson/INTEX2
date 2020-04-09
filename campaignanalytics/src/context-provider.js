@@ -10,10 +10,10 @@ export default class AppProvider extends React.Component {
     constructor(props) {
         super(props)
         this.actions = {
-            // accessed using context.method
             loadMoreCamp: this.loadMoreCamp,
             filterCampaigns: this.filterCampaigns,
-            resetShowCount: this.resetShowCount
+            resetShowCount: this.resetShowCount,
+            setFilteredCampaigns: this.setFilteredCampaigns
         }
         this.state = {
             campaign: [],
@@ -39,6 +39,12 @@ export default class AppProvider extends React.Component {
     resetShowCount = () => {
         this.setState(state => produce(state, draft => {
             draft.showCount = 8;
+        }))
+    }
+
+    setFilteredCampaigns = (myArray) => {
+        this.setState(state => produce(state, draft => {
+            draft.filteredCampaigns = myArray;
         }))
     }
 

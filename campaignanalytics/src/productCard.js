@@ -20,7 +20,7 @@ export default function ProductCard(props) {
     return (
             <bs.Col md='3' key={prod.campaign_id}>
                 <bs.Card border="dark" className="m-3" style={{height:"26em"}}>
-                    <Link className='btn btn-outline-info' to={`/details/${prod.campaign_id}`} style={{
+                    <Link className='btn btn-outline-custom' to={`/details/${prod.campaign_id}`} style={{
                         position:"absolute", 
                         top:0, 
                         right:0, 

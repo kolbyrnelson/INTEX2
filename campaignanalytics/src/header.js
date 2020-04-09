@@ -10,8 +10,8 @@ export default function HeaderContainer(props){
         <bs.Navbar bg="light" expand="lg" style={{width:"100%"}} fixed='top'>
             <Link to="/">
                 <bs.Navbar.Brand>
-                    <img src={'../Images/snowflake.ico'} alt="vial" style={{maxHeight:"2rem"}}/>
-                    Arctic Retailer
+                    <img src={'../Images/analytics.ico'} alt="vial" style={{maxHeight:"2rem"}}/>
+                    COVID-19 Fundraiser Analytics
                 </bs.Navbar.Brand>
             </Link>
             <bs.Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -22,22 +22,13 @@ export default function HeaderContainer(props){
                     <Link to="/help" className="nav-link">Help</Link>
                 </bs.Nav>
                 <bs.Nav>
-                    <Link to="/search" className="fas fa-search nav-link">  Search</Link>
+                    <Link to="/analytics" className="nav-link">Campaign Success Calculator</Link>
                 </bs.Nav>
                 <bs.Nav>
-                    <Link to="/analytics" className="fas fa-search nav-link">  Analytics</Link>
+                    <Link to="/search" className="nav-link"><i className="fas fa-search"></i>  Search</Link>
                 </bs.Nav>
                 <bs.Nav>
-                {   <bs.NavDropdown title="Welcome, Kolby" id="basic-nav-dropdown" alignright="true">
-                        <bs.NavDropdown.Item href="#action/3.3">Account</bs.NavDropdown.Item>
-                        <bs.NavDropdown.Divider />
-                        <bs.NavDropdown.Item href="#action/3.4">Logout</bs.NavDropdown.Item>
-                    </bs.NavDropdown> }
                 </bs.Nav>
-                {/* <bs.Form inline>
-                <bs.FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <bs.Button variant="outline-success">Search</bs.Button>
-                </bs.Form> */}
             </bs.Navbar.Collapse>
         </bs.Navbar>
     )
