@@ -10,7 +10,8 @@ export default function Filtered(props) {
 
     return (
         <bs.Container fluid className="text-center">
-            <h3 className="mt-2">Search Results</h3>
+            <h2 className="mt-2">Search Results</h2>
+            <h5><i>Found {context.filteredCampaigns.length} results</i></h5>
             <bs.Row>
                 {context.filteredCampaigns.slice(0, numOfCamp).map((prod) => {
                 return (
