@@ -1,9 +1,7 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
 import { Formik, Form, Field} from 'formik'
-import AppContext from './context';
 
 function Predict(props) {
 

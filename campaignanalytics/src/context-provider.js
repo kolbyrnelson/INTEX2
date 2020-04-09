@@ -24,6 +24,7 @@ export default class AppProvider extends React.Component {
             filteredCampaigns: []
         }
     }
+    
 
     render() {
         if (!this.state.campaign) {

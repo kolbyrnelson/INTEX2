@@ -11,7 +11,6 @@ import Help from './help';
 import About from './about';
 import Details from './details';
 import Search from './search';
-import Receipt from './receipt';
 import Filtered from './filtered';
 import Analytics from './analytics';
 
@@ -28,30 +27,27 @@ return (
               </bs.Col>
               <bs.Col md="8">
                 <Switch onUpdate={() => window.scrollTo(0, 0)}>
-                  <Route path="/about">
-                    <About />
-                  </Route>
-                  <Route path="/search">
-                    <Search />
-                  </Route>
-                  <Route path="/analytics">
-                    <Analytics />
-                  </Route>
-                  <Route path="/help">
-                    <Help />
-                  </Route>
-                  <Route path="/receipt">
-                    <Receipt />
-                  </Route>
-                  <Route path="/searchResults">
-                    <Filtered />
-                  </Route>
-                  <Route path="/details/:id">
-                    <Details />
-                  </Route>
-                  <Route path="/">
-                    <Home />
-                  </Route>
+                  <Route path="/about" component={About} />
+                    {/* <About /> */}
+                  {/* </Route> */}
+                  <Route path="/search" component={Search}/>
+                    {/* <Search /> */}
+                  {/* </Route> */}
+                  <Route path="/analytics" component={Analytics}/>
+                    {/* <Analytics /> */}
+                  {/* </Route> */}
+                  <Route path="/help" component={Help}/>
+                    {/* <Help /> */}
+                  {/* </Route> */}
+                  <Route path="/searchResults" component={Filtered}/>
+                    {/* // <Filtered /> */}
+                  {/* // </Route> */}
+                  <Route path="/details/:id" component={Details}/>
+                    {/* <Details /> */}
+                  {/* // </Route> */}
+                  <Route path="/" component={Home}/>
+                    {/* <Home /> */}
+                  {/* // </Route> */}
                 </Switch>
               </bs.Col>
               <bs.Col md="2" className="shadow" style={{backgroundColor:"lightblue"}}>
