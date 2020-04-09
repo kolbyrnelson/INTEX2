@@ -222,21 +222,30 @@ class PredictiveAPI(APIView):
 
         # the API call
         bodys = str.encode(json.dumps(data))
-        # print('---------------JSON Format-----------------')
-        # print(bodys)
+        print('---------------JSON Format-----------------')
+        print(bodys)
 
-        url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
-        api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEl3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/dacce8e99b89490abdc90024d04b5fb6/execute?api-version=2.0&details=true'
+        api_key = 'pXHO4RC51shGYsfdrxQXqK7d8QHvaMQWlN3l7nvy2zCzexSXZXqw6V47NTHQ9sRad41UvLFvREgqcjlT6qAfQA=='
+
+        ###### THIS URL AND API_KEY WORK BELLOW ######
+
+        # url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
+        # api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEl3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
+        
         # Replace my url and api_key with your own values
     
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
-        # print('---------------Headers-----------------')
-        # print(headers)
+        print('---------------Headers-----------------')
+        print(headers)
+
         # If you are using Python 3+, replace urllib2 with urllib.request
         #req = urllib2.Request(url, body, headers)
+        
         req = urllib.request.Request(url, bodys, headers) 
-        # print('---------------REQ-----------------')
-        # print(req)
+        print('---------------REQ-----------------')
+        print(req)
+
         # python3 uses urllib while python uses urllib2
         #response = urllib2.request.urlopen(req)
         response = urllib.request.urlopen(req)
@@ -244,7 +253,109 @@ class PredictiveAPI(APIView):
         # this formats the results 
         result = response.read()
         result = json.loads(result) # turns bits into json object
-        result = result["Results"]["output1"]["value"]["Values"][0][23] 
+        result = result["Results"]["output1"]["value"]["Values"][0][20] 
+        # azure send the response as a weird result object. It would be wise to postman to find the 
+        # path to the response var value
+
+        return Response({"result": result}) # this path assumes that this file is in the root directory in a folder named templates
+        # the third parameter sends the result (the response variable value) to the template to be rendered
+
+
+class QualityAPI(APIView):
+    @csrf_exempt
+    def post(self, request, format=None):
+        body = json.loads(request.body) 
+        # print('---------------Body-----------------')
+        print(body)
+
+        data = {
+                    "Inputs": {
+                        "input1": {
+                        "ColumnNames": [ 
+                            "Column 0",
+                            "Unnamed: 0",
+                            "campaign_id",
+                            "auto_fb_post_mode",
+                            "currencycode",
+                            "current_amount",
+                            "goal",
+                            "donators",
+                            "days_active",
+                            "title",
+                            "description",
+                            "has_beneficiary",
+                            "user_id",
+                            "visible_in_search",
+                            "is_launched",
+                            "campaign_hearts",
+                            "social_share_total",
+                            "location_city",
+                            "location_country",
+                            "location_zip",
+                            "averageMoneyPerDay",
+                            "donationsPerDay",
+                            "PercentPerDay",
+                            "SharesPerDay",
+                            "campaignheartsPerDay"
+                        ],
+                        "Values": [[
+                            body['column'],
+                            body['unnamed'],
+                            body['campaign_id'],
+                            body['auto_fb_post_mode'],
+                            body['currencycode'],
+                            body['current_amount'],
+                            body['goal'],
+                            body['donators'],
+                            body['days_active'],
+                            body['title'],
+                            body['description'],
+                            body['has_beneficiary'],
+                            body['user_id'],
+                            body['visible_in_search'],
+                            body['is_launched'],
+                            body['campaign_hearts'],
+                            body['social_share_total'],
+                            body['location_city'],
+                            body['location_country'],
+                            body['location_zip'],
+                            body['averageMoneyPerDay'],
+                            body['donationsPerDay'],
+                            body['PercentPerDay'],
+                            body['SharesPerDay'],
+                            body['campaignheartsPerDay']
+                            ],]
+                        },
+                    },
+                    "GlobalParameters": {}
+            }
+
+        # the API call
+        bodys = str.encode(json.dumps(data))
+        print('---------------JSON Format-----------------')
+        print(bodys)
+
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/9559d276022b450d868020d6dfdcbaaf/execute?api-version=2.0&details=true'
+        api_key = 'Fmm9k9l01PnDsKI9c7rwaNfkEJkSlD3lj7BUaMQPz1XW8gS2jt917JWcPRDCf64uJK7WnOC23AJP7e/gQzV8vQ=='
+        # Replace my url and api_key with your own values
+    
+        headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
+        print('---------------Headers-----------------')
+        print(headers)
+        
+        # If you are using Python 3+, replace urllib2 with urllib.request
+        #req = urllib2.Request(url, body, headers)
+        req = urllib.request.Request(url, bodys, headers) 
+        print('---------------REQ-----------------')
+        print(req)
+        # python3 uses urllib while python uses urllib2
+        #response = urllib2.request.urlopen(req)
+        response = urllib.request.urlopen(req)
+
+        # this formats the results 
+        result = response.read()
+        result = json.loads(result) # turns bits into json object
+        result = result["Results"]["output1"]["value"]["Values"][0][25] 
         # azure send the response as a weird result object. It would be wise to postman to find the 
         # path to the response var value
 
