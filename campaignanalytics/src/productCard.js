@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.scss';
 import './index.scss';
-// import AppContext from './context';
 import * as bs from 'react-bootstrap';
-// import PRODUCTS from './products.js';
 import CurrencyFormat from 'react-currency-format';
 import { Link } from "react-router-dom";
 

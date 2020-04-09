@@ -3,20 +3,18 @@ import * as bs from 'react-bootstrap'
 import axios from 'axios'
 import { Formik, Form, Field} from 'formik'
 
-
-function Checkout(props) {
+function Predict(props) {
 
     return (
-        <bs.Container fluid className="text-center my-3" style={{width:"50%"}}>
-            <CheckoutController />
+        <bs.Container fluid className="text-center my-3">
+            <PredictiveController />
         </bs.Container>
     )
 }
-export default Checkout
+export default Predict
 
-const CheckoutController = props => {
+const PredictiveController = props => {
     const [showPrediction, setPrediction] = React.useState("")
-
     return (
         <Formik
             initialValues={{
@@ -47,7 +45,6 @@ const CheckoutController = props => {
             validateOnBlur={false}
             validate={values => {
                 const errors = {};
-                // console.log('validating', values);
                 if(values.currencycode === ""){errors.currencycode = 'Please enter a value for the currency'};
                 if(values.goal === ""){errors.goal = 'You need a value for the goal'};
                 if(values.title === ""){errors.title = 'You need a value for the title'};
@@ -60,7 +57,6 @@ const CheckoutController = props => {
                 return errors;
             }}
             onSubmit={async (values, actions) => {
-                console.log('values:', values);
                 let city = "";
                 if(values.location_state !== undefined){
                     city = values.location_city.concat(", ", values.location_state);
@@ -68,7 +64,6 @@ const CheckoutController = props => {
                 else{
                     city = values.location_city;
                 }
-                // console.log("city: "+city);
                 const resp = await axios.post('http://localhost:8000/api/PredictiveAPI/', {
                     column: values.column,
                     unnamed: values.unnamed,
@@ -93,9 +88,10 @@ const CheckoutController = props => {
                     averageMoneyPerDay: values.averageMoneyPerDay,
                 })
 
-                // console.log(resp);
-                const respInput = parseInt(resp.data['result']).toFixed(0);
-                setPrediction(`You can expect to have ${respInput} donors!`);
+                console.log(resp);
+                const respInput = resp.data['result']
+                const reCalcResp = parseFloat(Math.exp(respInput) - 1).toFixed(2)
+                setPrediction(`You can expect to earn an average of $${reCalcResp} per day!`);
                 window.scrollTo(0, 0);
                 
                 await new Promise(resolve => {
@@ -106,57 +102,53 @@ const CheckoutController = props => {
             }}
         >{form => (
             <div> 
-                <div style={{ fontSize: '30px', color: 'red', textAlign: "center", padding: '15px' }}>{showPrediction}</div>
-                <PaymentForm form={form} />
+                <PredictiveForm form={form} pred={showPrediction}/>
             </div>
         )}</Formik>
     )
 }
 
-
-const PaymentForm = props => (
+const PredictiveForm = props => (
     <Form>
-        <bs.CardGroup>
-            <bs.Card>
-                <bs.Card.Body>
-                    <bs.Card.Title style={{ color: 'black', fontSize: '30px', textAlign: 'center'}}>Go-Fund-Me Data</bs.Card.Title>
-                    <p>Enter the details for the GoFundMe Campaign you are planning, and we will predict how successful it will be!</p>
-                    <Input title="Title" name="title" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Description" name="description" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Goal" name="goal" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="City" name="location_city" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="State" name="location_state" type="dropdown" as="select" disabled={props.form.isSubmitting} states="yes" options={["","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]} />
-                    <Input title="Country" name="location_country" type="text" disabled={props.form.isSubmitting} />
-                    <Input title="Zipcode" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Currency Type" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
-                    <Input title="Has Beneficiary?" name="has_beneficiary" type="dropdown" as="select" options={[["Yes", 1], ["No", 0]]} disabled={props.form.isSubmitting}/>
-                    <Input title="Auto Post to Facebook?" name="auto_fb_post_mode" type="dropdown" as="select" options={[["Yes", 1], ["No", 0]]} disabled={props.form.isSubmitting}/>
-                </bs.Card.Body>
-                <bs.Button size="lg" className='mt-1 align-center text-center' type="submit" disabled={props.form.isSubmitting}>
-                    {props.form.isSubmitting &&
-                    <bs.Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />}
-                    Calculate
-                </bs.Button>
-            </bs.Card>
-        </bs.CardGroup>
-
+        <bs.Row>
+            <bs.Col sm={8}>
+                <bs.Card style={{ width: '100%'}}>
+                    <bs.Card.Body>
+                        <bs.Card.Title style={{ color: 'black', fontSize: '30px', textAlign: 'center'}}>Go-Fund-Me Data</bs.Card.Title>
+                        <p>Enter the details for the GoFundMe Campaign you are planning, and we will predict how successful it will be!</p>
+                        <Input title="Title" name="title" type="text" disabled={props.form.isSubmitting}/>
+                        <Input title="Description" name="description" type="text" disabled={props.form.isSubmitting}/>
+                        <Input title="Goal" name="goal" type="text" disabled={props.form.isSubmitting}/>
+                        <Input title="City" name="location_city" type="text" disabled={props.form.isSubmitting}/>
+                        <Input title="State" name="location_state" type="dropdown" as="select" disabled={props.form.isSubmitting} states="yes" options={["","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]} />
+                        <Input title="Country" name="location_country" type="text" disabled={props.form.isSubmitting} />
+                        <Input title="Zipcode" name="location_zip" type="text" disabled={props.form.isSubmitting}/>
+                        <Input title="Currency Type" name="currencycode" type="text" disabled={props.form.isSubmitting}/>
+                        <Input title="Has Beneficiary?" name="has_beneficiary" type="dropdown" as="select" options={[["Yes", 1], ["No", 0]]} disabled={props.form.isSubmitting}/>
+                        <Input title="Auto Post to Facebook?" name="auto_fb_post_mode" type="dropdown" as="select" options={[["Yes", 1], ["No", 0]]} disabled={props.form.isSubmitting}/>
+                    </bs.Card.Body>
+                    <bs.Button size="lg" className='mt-1 align-center text-center' type="submit" disabled={props.form.isSubmitting}>
+                        {props.form.isSubmitting &&
+                        <bs.Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />}
+                        Calculate
+                    </bs.Button>
+                </bs.Card> 
+            </bs.Col>
+            <bs.Col sm={4}>      
+                <bs.Container style={{ width: '100%'}} >
+                    <h1 style={{ color: 'black', fontSize: '30px', textAlign: 'center', paddingTop: "20px"}}>Results</h1>
+                    <p style={{ fontSize: '30px', color: 'red', textAlign: "center"}}>{props.pred}</p>
+                </bs.Container>
+            </bs.Col>
+        </bs.Row>  
     </Form>
 )
-
-
-/**
- * A form input.
- *   props.title - the title that shows above the input box
- *   props.type - the type of input (see React Bootstrap Form.Control)
- *   props.placeholder - placeholder text in the input.
- * This component is finished and doesn't need additional work.
- */
 
 // {countries.map((country)=> {
 //     return <option value={country} key={country}>{country}</option>

@@ -19,8 +19,8 @@ export default function Details(props) {
         return <h2 className="text-center mt-5">404 Error. Page not found.</h2>
     }
 
-    item.column = 0;
-    item.unnamed = 0;
+    const columnInput = 0
+    const unnamedInput = 0
     if (item.column === "") {
         item.column = "0"   
     }
@@ -84,12 +84,12 @@ export default function Details(props) {
 
     //Write an if statement to not include if the variable is blank
     //Write validations for the inputes (ex. zip) that may have characters to be set to 0
-    makeHeadRequest(item)
+    Quality(item)
     // This is where we send the details of the campaign to the Azure api
-    async function makeHeadRequest(item) {
+    async function Quality(item) {
         const resp = await axios.post('http://localhost:8000/api/QualityAPI/', {
-            column: item.column,
-            unnamed: item.unnamed,
+            column: columnInput,
+            unnamed: unnamedInput,
             campaign_id: item.campaign_id,
             auto_fb_post_mode: item.auto_fb_post_mode,
             currencycode: item.currencycode,
@@ -115,8 +115,9 @@ export default function Details(props) {
             campaignheartsPerDay: (item.campaign_hearts / item.days_active),
         })
 
-        const respOutput = (parseFloat(resp.data['result']).toFixed(3) * 100)
-        setRespOutput(respOutput)
+        const respOutput = (parseFloat(resp.data['result']))
+        const percCalc = (respOutput * 100).toFixed(1)
+        setRespOutput(percCalc)
     }
 
     return (
