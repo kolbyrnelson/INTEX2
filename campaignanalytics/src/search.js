@@ -20,7 +20,6 @@ const SearchForm = props => {
     const context = React.useContext(AppContext);
     let history = useHistory();
 
-    //START HERE TO GET UNIQUE LIST OF COUNTRIES
     const countries = [...new Set(context.campaign.map(camp => camp.location_country))];
     countries.sort();
 

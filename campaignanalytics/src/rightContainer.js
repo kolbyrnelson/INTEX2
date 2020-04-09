@@ -57,7 +57,7 @@ export default function RightContainer(props) {
         <bs.Nav className="flex-column p-1">
             <div className="text-center mt-2">
             <p  style={{fontSize:"1.5rem"}}>Campaign Leaderboard</p>
-            <img src={'../Images/trophy.ico'} style={{height:"5rem", width:"5rem"}}></img>
+            <img alt="trophy" src={'../Images/trophy.ico'} style={{height:"5rem", width:"5rem"}}></img>
             </div>
             <ol className="m-2 p-2">
                 {top5.map((camp) => {
