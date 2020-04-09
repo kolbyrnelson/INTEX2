@@ -43,7 +43,7 @@ const SearchForm = props => {
     return (
         <bs.Form onSubmit={(e) => handleSubmit(e)} >
             <bs.CardGroup>
-                <bs.Card>
+                 <bs.Card>
                     <bs.Card.Body>
                         <bs.Card.Title className = "mb-1" style={{ color: 'black', fontSize: '30px', textAlign: 'center'}}>Filter Campaigns</bs.Card.Title>
                         <p style={{fontSize: "14pt"}}>Search active GoFundMe campaigns that relate to Covid-19</p>

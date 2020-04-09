@@ -22,11 +22,11 @@ export default function Home(props) {
                 )
                 })}
             </bs.Row>
-         <bs.Button className="m-2" style={{backgroundColor:"#00b964", borderColor: "white"}} onClick= {e=>{
-                    context.loadMoreCamp(true);
-                }}>Show More Campaigns</bs.Button>
-        <br></br>
-        <i className="fas fa-chevron-down fa-lg"></i>
+            <bs.Button className="m-2" style={{backgroundColor:"#00b964", borderColor: "white"}} onClick= {e=>{
+                        context.loadMoreCamp(true);
+                    }}>Show More Campaigns</bs.Button>
+            <br></br>
+            <i className="fas fa-chevron-down fa-lg"></i>
         </bs.Container>
 )
 }

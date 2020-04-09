@@ -222,21 +222,30 @@ class PredictiveAPI(APIView):
 
         # the API call
         bodys = str.encode(json.dumps(data))
-        # print('---------------JSON Format-----------------')
-        # print(bodys)
+        print('---------------JSON Format-----------------')
+        print(bodys)
 
-        url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
-        api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEl3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/dacce8e99b89490abdc90024d04b5fb6/execute?api-version=2.0&details=true'
+        api_key = 'pXHO4RC51shGYsfdrxQXqK7d8QHvaMQWlN3l7nvy2zCzexSXZXqw6V47NTHQ9sRad41UvLFvREgqcjlT6qAfQA=='
+
+        ###### THIS URL AND API_KEY WORK BELLOW ######
+
+        # url = 'https://ussouthcentral.services.azureml.net/workspaces/c370cb8ac2994180a10fd8f39b30b85b/services/85e24fb6405d449797b6fdf064844cfb/execute?api-version=2.0&details=true'
+        # api_key = 'T+ftZxWASFIVMRTgOVTVK8GEZy3sRRZj3BeCSX/Hq+oWEl3wDE3s1Aky/sszySX/f22j07oTvni+x8JVpQxESQ=='
+        
         # Replace my url and api_key with your own values
     
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
-        # print('---------------Headers-----------------')
-        # print(headers)
+        print('---------------Headers-----------------')
+        print(headers)
+
         # If you are using Python 3+, replace urllib2 with urllib.request
         #req = urllib2.Request(url, body, headers)
+        
         req = urllib.request.Request(url, bodys, headers) 
-        # print('---------------REQ-----------------')
-        # print(req)
+        print('---------------REQ-----------------')
+        print(req)
+
         # python3 uses urllib while python uses urllib2
         #response = urllib2.request.urlopen(req)
         response = urllib.request.urlopen(req)
@@ -244,7 +253,7 @@ class PredictiveAPI(APIView):
         # this formats the results 
         result = response.read()
         result = json.loads(result) # turns bits into json object
-        result = result["Results"]["output1"]["value"]["Values"][0][23] 
+        result = result["Results"]["output1"]["value"]["Values"][0][20] 
         # azure send the response as a weird result object. It would be wise to postman to find the 
         # path to the response var value
 
