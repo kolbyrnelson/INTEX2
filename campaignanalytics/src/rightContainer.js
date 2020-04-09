@@ -51,7 +51,7 @@ import AppContext from './context';
 export default function RightContainer(props) {
     const context = React.useContext(AppContext);
 
-    const top5 = context.campaign.sort((camp,b) => (parseFloat(b.current_amount)) - (parseFloat(camp.current_amount))).slice(0,5)
+    const top5 = context.campaign.slice(0).sort((camp,b) => (parseFloat(b.current_amount)) - (parseFloat(camp.current_amount))).slice(0,5);
 
     return(
         <bs.Nav className="flex-column p-1">
