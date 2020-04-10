@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     # re_path(r'^.*/', include('client.urls')),
-    # re_path(r'', include('client.urls'))
-]
-# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    re_path(r'', include('client.urls'))
+# ]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -87,7 +87,8 @@ export default function Details(props) {
     Quality(item)
     // This is where we send the details of the campaign to the Azure api
     async function Quality(item) {
-        const resp = await axios.post('http://localhost:8000/api/QualityAPI/', {
+        // const resp = await axios.post('http://localhost:8000/api/QualityAPI/', {
+        const resp = await axios.post('/api/QualityAPI/', {
             column: columnInput,
             unnamed: unnamedInput,
             campaign_id: item.campaign_id,
@@ -132,6 +133,9 @@ export default function Details(props) {
                     &nbsp;Out Of&nbsp;
                     <CurrencyFormat value={parseFloat(item.goal).toFixed(0)} prefix={'$'} displayType={'text'} thousandSeparator={true} render={item.goal}/>
                 </i></p>
+                
+                <p style={{ fontWeight: 'bold', fontSize: '15px', color: 'red'}}>Predicted Goal Completion Rate Per Day: {showRespOutput}%</p>
+                
                 <h5 className="mt-2">Campaign Description</h5>
                 <p>{item.description}</p>
                 <h5>Additional Campaign Info</h5>
@@ -142,8 +146,6 @@ export default function Details(props) {
                 City: {item.location_city}
                 <br></br>
                 Country: {item.location_country}</p>
-                <br></br>
-                <p style={{ fontWeight: 'bold', fontSize: '20px', color: 'red', textAlign: "center", padding: '15px' }}>Reliabilty Score: {showRespOutput}%</p>
             </div>
 
             <div>

@@ -102,9 +102,13 @@ export default class AppProvider extends React.Component {
     }
 
     async componentDidMount() {
-        const cam = await axios.get('http://localhost:8000/api/campaign/')
-        const don = await axios.get('http://localhost:8000/api/donation/')
-        const upd = await axios.get('http://localhost:8000/api/update/')
+        const cam = await axios.get('/api/campaign/')
+        const don = await axios.get('/api/donation/')
+        const upd = await axios.get('/api/update/')
+        
+        // const cam = await axios.get('http://localhost:8000/api/campaign/')
+        // const don = await axios.get('http://localhost:8000/api/donation/')
+        // const upd = await axios.get('http://localhost:8000/api/update/')
 
         // console.log(cam.data)
 
