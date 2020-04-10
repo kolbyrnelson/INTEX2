@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import * as bs from 'react-bootstrap';
-import MailTo from 'react-mailto';
 
 export default function Help() {
     return (
@@ -12,7 +11,7 @@ export default function Help() {
                     <bs.Col></bs.Col>
                     <bs.Col className="text-center" xs={6}>
                         <p>
-                            We are here to help. If you have any questions please reach out to us by email. Our email is: <MailTo email="COVID19fundraiseranalytics@gmail.com">COVID19fundraiseranalytics@gmail.com</MailTo>
+                            We are here to help. If you have any questions please reach out to us by email. Our email is: <a href="mailto:COVID19fundraiseranalytics@gmail.com">COVID19fundraiseranalytics@gmail.com</a>
                         <br></br><br></br><br></br>
                         <i className="fas fa-question-circle" style={{
                             fontSize: "14rem",
