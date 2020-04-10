@@ -17,7 +17,7 @@ export default function About() {
                         <p>
                             We are a group of BYU Information Systems students that just want to make a difference in the world.
                         <br></br><br></br><br></br>
-                        <img alt="IS Logo" src={"../Images/islogo.jfif"}></img>
+                        <img alt="IS Logo" src={`${process.env.PUBLIC_URL}/Images/islogo.jfif`}></img>
                         </p>
                     </bs.Col>
                     <bs.Col></bs.Col>

@@ -9,6 +9,15 @@ import ProductCard from './productCard';
 export default function Home(props) {
     const context = React.useContext(AppContext)
     const numOfCamp =  context.showCount
+    if(context.campaign == null){
+        return (
+        <h2 className="text-center mt-5">
+            <bs.Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </bs.Spinner>Loading Campaigns. Please Wait.
+        </h2>
+            )
+    }
 
     return (
         <bs.Container fluid className="text-center">
