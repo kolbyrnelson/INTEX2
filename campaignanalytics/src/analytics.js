@@ -49,7 +49,8 @@ const PredictiveForm = (props) => {
             else{
                 city = event.target.elements.location_city.value;
             }
-            const resp = await axios.post('http://localhost:8000/api/PredictiveAPI/', {
+            // const resp = await axios.post('http://localhost:8000/api/PredictiveAPI/', {
+            const resp = await axios.post('/api/PredictiveAPI/', {
                 column: '0',
                 unnamed: '0',
                 campaign_id: '0',

@@ -2,6 +2,7 @@
   "name": "campaignanalytics",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/static/build",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@testing-library/jest-dom": "^4.2.4",

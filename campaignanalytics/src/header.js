@@ -8,7 +8,7 @@ export default function HeaderContainer(props){
         <bs.Navbar bg="light" expand="lg" style={{width:"100%"}} fixed='top'>
             <Link to="/">
                 <bs.Navbar.Brand>
-                    <img src={'../Images/analytics.ico'} alt="vial" style={{maxHeight:"2rem"}}/>
+                    <img src={`${process.env.PUBLIC_URL}/Images/Fundrasier-Analytics.ico`} alt="vial" style={{maxHeight:"2rem"}}/>
                     COVID-19 Fundraiser Analytics
                 </bs.Navbar.Brand>
             </Link>
